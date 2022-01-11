@@ -28,16 +28,27 @@ a:visited{
     font-size: 20px;
 }
 
+.nav-link:hover{
+    text-decoration: none;
+}
+
 .navbar-brand{
     font-size: 25px;
+    transition: all .5s ease;
+}
+
+.navbar-brand:hover{
+    text-decoration: none;
+    transform: scale(1.2);
 }
 
 .bg-MDe{
-    background-color: #bee5fc;
+  /*  background-color: #bee5fc;*/
+  background-color: rgba(36, 36, 41, 0);
 }
 
 #theArticle{
-    margin-top: 2vw;
+    margin-top: 0vw;
     margin-bottom: 2vw;
     background-color: white;
     border-radius: 20px;
