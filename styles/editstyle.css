@@ -1,0 +1,49 @@
+body{
+    font-family: 'Noto Sans', sans-serif;
+    background-image: url('../img/congruent_pentagon.png');
+    /*Thanks to subtle patterns
+    https://www.toptal.com/designers/subtlepatterns/congruent-pentagon/*/
+}
+
+.rows{
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.navbar{
+    font-size: 20px;
+}
+
+.nav-link:hover{
+    text-decoration: none;
+}
+
+.navbar-brand{
+    font-size: 25px;
+    transition: all .5s ease;
+}
+
+.navbar-brand:hover{
+    text-decoration: none;
+    transform: scale(1.2);
+}
+
+.bg-MDe{
+  /*  background-color: #bee5fc;*/
+  background-color: rgba(36, 36, 41, 0);
+}
+
+#work-place{
+    color: black;
+    width: 100%;
+    height: 90vh;
+    border-radius: 20px;
+    padding: 1vw;
+}
+
+#display-area{
+    background-color: #ffffff;
+    height: 90vh;
+    padding: 1vw;
+    border-radius: 20px;
+}
