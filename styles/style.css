@@ -41,7 +41,9 @@ a:visited{
     margin-bottom: 2vw;
     background-color: white;
     border-radius: 20px;
-
+    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1); 
+    -moz-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
+    box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
 }
 
 .title{
@@ -71,6 +73,9 @@ a:visited{
     padding: .8vw;
     border-radius: 20px;
     text-align: justify;
+    -webkit-box-shadow: 0px 10px 21px -9px rgba(36, 36, 41, 1);
+    -moz-box-shadow: 0px 10px 21px -9px rgba(36, 36, 41, 1);
+    box-shadow: 0px 10px 21px -9px rgba(36, 36, 41, 1);
 }
 
 .adBtn{
@@ -99,4 +104,10 @@ footer > .rows > .col-md-3 > a:hover{
     text-decoration: underline;
     margin-top: 4rem;
     margin-bottom: 4rem;
+}
+
+@media only screen and (max-width: 767px){
+    .adHid{
+        display: none;
+    }
 }
