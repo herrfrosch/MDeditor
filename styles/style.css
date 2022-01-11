@@ -67,17 +67,16 @@ a:visited{
 
 .ad{
     background-color: #ffffff;
-    margin-top: 2vw;
-    padding: 1vw;
+    margin-bottom: 2vw;
+    padding: .8vw;
     border-radius: 20px;
     text-align: justify;
 }
 
 .adBtn{
     width: 100% !important;
+    border-radius: 20px !important;
 }
-
-
 
 #footr{
     background-color: #1f1f1f;
