@@ -77,10 +77,7 @@ a:visited{
     width: 100% !important;
 }
 
-#myName{
-    position: relative;
-    top: 40%;
-}
+
 
 #footr{
     background-color: #1f1f1f;
@@ -104,4 +101,3 @@ footer > .rows > .col-md-3 > a:hover{
     margin-top: 4rem;
     margin-bottom: 4rem;
 }
-
