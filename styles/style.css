@@ -5,6 +5,20 @@ body{
     https://www.toptal.com/designers/subtlepatterns/congruent-pentagon/*/
 }
 
+a{
+    text-decoration: none;
+    color:#e9820c;
+}
+
+a:hover{
+    text-decoration: underline;
+    color:#dd500f
+}
+
+a:visited{
+    color: #dd500f;
+}
+
 .rows{
     width: 100% !important;
     margin: 0 !important;
@@ -24,7 +38,9 @@ body{
 
 #theArticle{
     margin-top: 2vw;
+    margin-bottom: 2vw;
     background-color: white;
+    border-radius: 20px;
 
 }
 
@@ -48,3 +64,44 @@ body{
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.ad{
+    background-color: #ffffff;
+    margin-top: 2vw;
+    padding: 1vw;
+    border-radius: 20px;
+    text-align: justify;
+}
+
+.adBtn{
+    width: 100% !important;
+}
+
+#myName{
+    position: relative;
+    top: 40%;
+}
+
+#footr{
+    background-color: #1f1f1f;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+}
+
+footer > .rows > .col-md-3 > a{
+    color: #909090;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    text-decoration: none;
+    
+}
+
+footer > .rows > .col-md-3 > a:hover{
+    color: #e9820c;
+    text-decoration: underline;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
