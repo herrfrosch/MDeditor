@@ -1,6 +1,6 @@
-let editPlace = $('#work-place');
-let displayPlace = $('#display-area');
-let tCheck = $('#check');
+const editPlace = $('#work-place');
+const displayPlace = $('#display-area');
+//let tCheck = $('#check');
 
 let specialChars = [
     "#",
@@ -19,28 +19,26 @@ let specialChars = [
     "]"
 ];
 
-window.on('load', setInterval(function () {
+editPlace.on('input', function () {
 
-    let rawText = editPlace.val();
-    let edited;
+    displayPlace.html('');
 
-    edited = startParser(rawText);
+    let rawTxt = editPlace.val();
 
-    displayPlace.html(edited);
+    parser(rawTxt);
+});
 
-}, 10));
-
-
-function startParser(text) {
+function parser(text) {
 
     let mdCode = text.split('\n');
 
-    mdCode = readToken(mdCode);
-
-    return mdCode;
+    readToken(mdCode);
 }
 
+
 function readToken(textarr) {
+
+    let flag = false;
 
     for (var i = 0; i < textarr.length; i++) {
 
@@ -48,14 +46,16 @@ function readToken(textarr) {
 
             if (textarr[i].startsWith(specialChars[a])) {
 
+                flag = true;
+
                 switch (a) {
 
                     case 0:
-                        textarr[i] = addHeading(textarr[i], 0, 6);
+                        addHeading(textarr[i], 0, 6);
                         break;
                     case 1:
                     case 2:
-                        makeList(textarr, i);
+                        createElement(textarr, i);
                         break;
                     /*case 3:
                         //underline(textarr[i]);
@@ -63,49 +63,63 @@ function readToken(textarr) {
                     case 4:
                         //quote(textarr[i]);
                         break;
-                    //case 4:*/
-
-
+                    */
                 }
             }
         }
-    }
 
-    return textarr;
+        if(flag == false){
+            addParagraph(textarr[i]);
+        } else {
+            flag = false;
+        }
+    }
 }
 
 function addHeading(headerText, initA, limitA) {
 
-    for (var a = initA + 1; a < limitA + 1; a++) {
+    for (let a = initA + 1; a < limitA + 1; a++) {
 
         if (headerText.charAt(a) != specialChars[0]) {
 
-            headerText = headerText.substr(a, headerText.length);
-            headerText = '<h' + a + '>' + headerText + '<h' + a + '>';
+            let headerTag = 'h' + a;
+
+            headerText = headerText.slice(a, headerText.length);
+            let header = document.createElement(headerTag);
+
+            header.innerText = headerText;
+
+            document.getElementById('display-area').appendChild(header);
+
             a = limitA;
         }
     }
-
-    return headerText;
 }
 
-/*function makeList(list, listIndex) {
+function createElement(listText, index) {
 
-    let counter = 0;
+    listText[index] = listText[index].slice(1, listText[index].length);
 
-    for (var i = 0; i < (list.length - 1); i++) {
-        if (list[i].startsWith(specialChars[1])) {
-            counter++;
-            if (counter == 1) {
-                list[i] = '<ul><li>' + list[i] + '</li>';
-            } else {
-                list[i-1] = list[i-1].slice(0,list[i-1].length-5);
-                list[i] = '<li>' + list[i] + '</li>';
-            }
-        } else if (counter > 1) {
-            list[i - 1] = '<li>' + list[i] + '</li></ul>';
-            counter = 0;
-        }
-    }
-    return list;
+    let element = document.createElement("li");
+
+    element.innerText = listText[index];
+
+    document.getElementById('display-area').appendChild(element);
+
+    //makeList();
+}
+
+/*function makeList(){
+
+    const unlisted = $('li');
 }*/
+
+function addParagraph(text){
+
+    let par = document.createElement("p");
+
+    par.innerText = text;
+
+    document.getElementById('display-area').appendChild(par);
+
+}
