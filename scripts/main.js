@@ -1,6 +1,5 @@
 const editPlace = $('#work-place');
 const displayPlace = $('#display-area');
-//let tCheck = $('#check');
 
 let specialChars = [
     "#",
@@ -55,7 +54,12 @@ function readToken(textarr) {
                         break;
                     case 1:
                     case 2:
-                        createElement(textarr, i);
+                        if (i > 0 && textarr[i - 1].startsWith(specialChars[1])) { //get to know how to make multiple lists
+                            createElement(textarr, i);
+                        } else {
+                            makeuList();
+                            createElement(textarr, i);
+                        }
                         break;
                     /*case 3:
                         //underline(textarr[i]);
@@ -68,7 +72,7 @@ function readToken(textarr) {
             }
         }
 
-        if(flag == false){
+        if (flag == false) {
             addParagraph(textarr[i]);
         } else {
             flag = false;
@@ -102,19 +106,23 @@ function createElement(listText, index) {
 
     let element = document.createElement("li");
 
+    //let list = document.getElementById("first-list"); i'd get to know how to make this work
+
     element.innerText = listText[index];
 
-    document.getElementById('display-area').appendChild(element);
-
-    //makeList();
+    document.getElementById("first-list").appendChild(element);
 }
 
-/*function makeList(){
+function makeuList() {
 
-    const unlisted = $('li');
-}*/
+    let ulist = document.createElement("ul");
 
-function addParagraph(text){
+    ulist.setAttribute("id", "first-list");
+
+    document.getElementById('display-area').appendChild(ulist);
+}
+
+function addParagraph(text) {
 
     let par = document.createElement("p");
 
@@ -123,3 +131,17 @@ function addParagraph(text){
     document.getElementById('display-area').appendChild(par);
 
 }
+
+/*function addBreak(text, line) {
+
+    if (text.length > 1 && line != text.length) {
+
+        if (text[line].endsWith(specialChars[5])) {
+
+        }
+
+    }
+
+    return text[line];
+
+}*/
