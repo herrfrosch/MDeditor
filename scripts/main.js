@@ -50,7 +50,8 @@ function readToken(textarr) {
                 switch (a) {
 
                     case 0:
-                        addHeading(textarr[i], 0, 6);
+                        let header = addHeading(textarr[i]);
+                        document.getElementById('display-area').appendChild(header);
                         break;
                     case 1:
                     case 2:
@@ -80,9 +81,11 @@ function readToken(textarr) {
     }
 }
 
-function addHeading(headerText, initA, limitA) {
+function addHeading(headerText) {
 
-    for (let a = initA + 1; a < limitA + 1; a++) {
+    let limitA = 7;
+
+    for (let a = 0; a < limitA; a++) {
 
         if (headerText.charAt(a) != specialChars[0]) {
 
@@ -92,25 +95,32 @@ function addHeading(headerText, initA, limitA) {
             let header = document.createElement(headerTag);
 
             header.innerText = headerText;
-
-            document.getElementById('display-area').appendChild(header);
-
             a = limitA;
+
+            return header;
         }
     }
 }
 
 function createElement(listText, index) {
 
-    listText[index] = listText[index].slice(1, listText[index].length);
+    listText[index] = listText[index].slice(2, listText[index].length);
 
     let element = document.createElement("li");
 
     //let list = document.getElementById("first-list"); i'd get to know how to make this work
 
-    element.innerText = listText[index];
+    if (listText[index].charAt(0) == specialChars[0]) {       
 
-    document.getElementById("first-list").appendChild(element);
+        let header = addHeading(listText[index]);
+
+        element.insertAdjacentElement("beforeend", header);
+        document.getElementById("first-list").appendChild(element);
+
+    } else {
+        element.innerText = listText[index];
+        document.getElementById("first-list").appendChild(element);
+    }
 }
 
 function makeuList() {
@@ -131,17 +141,3 @@ function addParagraph(text) {
     document.getElementById('display-area').appendChild(par);
 
 }
-
-/*function addBreak(text, line) {
-
-    if (text.length > 1 && line != text.length) {
-
-        if (text[line].endsWith(specialChars[5])) {
-
-        }
-
-    }
-
-    return text[line];
-
-}*/
