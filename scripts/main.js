@@ -6,6 +6,7 @@ let specialChars = [
     "- ",
     "+ ",
     "=",
+    "-",
     ">",
     "  ",
     "*",
@@ -26,6 +27,13 @@ editPlace.on('input', function () {
 
     parser(rawTxt);
 });
+
+function containOnly(toCheck, checker) {
+    for (let i = 0; i < toCheck.length; i++) {
+        if (toCheck[i] != checker)  return false;
+    }
+    return true;
+}
 
 function parser(text) {
 
@@ -62,15 +70,18 @@ function readToken(textarr) {
                             createElement(textarr, i);
                         }
                         break;
-                    /*case 3:
-                        //underline(textarr[i]);
-                        break;
-                    case 4:
+                    /*case 4:
                         //quote(textarr[i]);
                         break;
                     */
                 }
             }
+        }
+
+        if (containOnly(textarr[i], specialChars[3]) && i > 0 && textarr[i].length > 0) {
+            alternateHeading(textarr[i - 1], 1);
+        } else if (containOnly(textarr[i], specialChars[4]) && i > 0 && textarr[i].length > 0) {
+            alternateHeading(textarr[i - 1], 2);
         }
 
         if (flag == false) {
@@ -102,6 +113,21 @@ function addHeading(headerText) {
     }
 }
 
+function alternateHeading(headerText, size) {
+
+    let tag = 'h' + size;
+
+    let header = document.createElement(tag);
+
+    header.innerText = headerText;
+
+    let last = document.getElementById('display-area').lastChild;
+
+    document.getElementById('display-area').removeChild(last);
+
+    document.getElementById('display-area').appendChild(header);
+}
+
 function createElement(listText, index) {
 
     listText[index] = listText[index].slice(2, listText[index].length);
@@ -110,7 +136,7 @@ function createElement(listText, index) {
 
     //let list = document.getElementById("first-list"); i'd get to know how to make this work
 
-    if (listText[index].charAt(0) == specialChars[0]) {       
+    if (listText[index].charAt(0) == specialChars[0]) {
 
         let header = addHeading(listText[index]);
 
