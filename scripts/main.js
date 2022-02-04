@@ -1,45 +1,143 @@
-let editPlace = $('#work-place');
-let displayPlace = $('#display-area');
-let tCheck = $('#check');
+const editPlace = $('#work-place');
+const displayPlace = $('#display-area');
 
-window.on('load', setInterval(function(){
+let specialChars = [
+    "#",
+    "- ",
+    "+ ",
+    "=",
+    ">",
+    "  ",
+    "*",
+    "_",
+    ".",
+    "\\",
+    "!",
+    "`",
+    "[",
+    "]"
+];
 
-    var rawText = editPlace.val();
-    var edited;
+editPlace.on('input', function () {
 
-    edited = mdParser(rawText);
+    displayPlace.html('');
 
-    displayPlace.html(edited);
+    let rawTxt = editPlace.val();
 
-}, 10));
+    parser(rawTxt);
+});
 
-
-function mdParser(text){
+function parser(text) {
 
     let mdCode = text.split('\n');
 
-    for(var i = 0; i < mdCode.length; i++){
+    readToken(mdCode);
+}
 
-        if(mdCode[i].startsWith('# ')){
-            mdCode[i] = mdCode[i].substr(1);
-            mdCode[i] = '<h1>'+mdCode[i]+'</h1>';
-        } else if (mdCode[i].startsWith('## ')){
-            mdCode[i] = mdCode[i].substr(2);
-            mdCode[i] = '<h2>'+mdCode[i]+'</h2>';
-        } else if (mdCode[i].startsWith('### ')){
-            mdCode[i] = mdCode[i].substr(3);
-            mdCode[i] = '<h3>'+mdCode[i]+'</h3>';
-        } 
-        else mdCode[i] = mdCode[i];
 
-        mdCode[i]='<p>'+mdCode[i]+'</p>';
+function readToken(textarr) {
+
+    let flag = false;
+
+    for (var i = 0; i < textarr.length; i++) {
+
+        for (var a = 0; a < 5; a++) {
+
+            if (textarr[i].startsWith(specialChars[a])) {
+
+                flag = true;
+
+                switch (a) {
+
+                    case 0:
+                        let header = addHeading(textarr[i]);
+                        document.getElementById('display-area').appendChild(header);
+                        break;
+                    case 1:
+                    case 2:
+                        if (i > 0 && textarr[i - 1].startsWith(specialChars[1])) { //get to know how to make multiple lists
+                            createElement(textarr, i);
+                        } else {
+                            makeuList();
+                            createElement(textarr, i);
+                        }
+                        break;
+                    /*case 3:
+                        //underline(textarr[i]);
+                        break;
+                    case 4:
+                        //quote(textarr[i]);
+                        break;
+                    */
+                }
+            }
+        }
+
+        if (flag == false) {
+            addParagraph(textarr[i]);
+        } else {
+            flag = false;
+        }
     }
+}
 
-    var mdLength = mdCode[0].length-4;
+function addHeading(headerText) {
 
-    mdCode[0] = mdCode[0].substr(3, mdLength);
+    let limitA = 7;
 
-    //mdCode[0] = mdCode[0]+"</br>";
+    for (let a = 0; a < limitA; a++) {
 
-    return  mdCode;
+        if (headerText.charAt(a) != specialChars[0]) {
+
+            let headerTag = 'h' + a;
+
+            headerText = headerText.slice(a, headerText.length);
+            let header = document.createElement(headerTag);
+
+            header.innerText = headerText;
+            a = limitA;
+
+            return header;
+        }
+    }
+}
+
+function createElement(listText, index) {
+
+    listText[index] = listText[index].slice(2, listText[index].length);
+
+    let element = document.createElement("li");
+
+    //let list = document.getElementById("first-list"); i'd get to know how to make this work
+
+    if (listText[index].charAt(0) == specialChars[0]) {       
+
+        let header = addHeading(listText[index]);
+
+        element.insertAdjacentElement("beforeend", header);
+        document.getElementById("first-list").appendChild(element);
+
+    } else {
+        element.innerText = listText[index];
+        document.getElementById("first-list").appendChild(element);
+    }
+}
+
+function makeuList() {
+
+    let ulist = document.createElement("ul");
+
+    ulist.setAttribute("id", "first-list");
+
+    document.getElementById('display-area').appendChild(ulist);
+}
+
+function addParagraph(text) {
+
+    let par = document.createElement("p");
+
+    par.innerText = text;
+
+    document.getElementById('display-area').appendChild(par);
+
 }
