@@ -47,9 +47,11 @@ function readToken(textarr) {
 
     let flag = false;
 
-    for (var i = 0; i < textarr.length; i++) {
+    let ulistCounter = 0;
 
-        for (var a = 0; a < 5; a++) {
+    for (let i = 0; i < textarr.length; i++) {
+
+        for (let a = 0; a < 5; a++) {
 
             if (textarr[i].startsWith(specialChars[a])) {
 
@@ -63,11 +65,12 @@ function readToken(textarr) {
                         break;
                     case 1:
                     case 2:
-                        if (i > 0 && textarr[i - 1].startsWith(specialChars[1])) { //get to know how to make multiple lists
-                            createElement(textarr, i);
+                        if (i > 0 && (textarr[i - 1].startsWith(specialChars[1]) || textarr[i - 1].startsWith(specialChars[2]))) {
+                            createElement(textarr, i, ulistCounter);
                         } else {
-                            makeuList();
-                            createElement(textarr, i);
+                            ulistCounter++;
+                            makeuList(ulistCounter);
+                            createElement(textarr, i, ulistCounter);
                         }
                         break;
                     /*case 4:
@@ -78,9 +81,9 @@ function readToken(textarr) {
             }
         }
 
-        if (containOnly(textarr[i], specialChars[3]) && i > 0 && textarr[i].length > 0) {
+        if (containOnly(textarr[i], specialChars[3]) && i > 0 && textarr[i].length > 0 && !textarr[i - 1].startsWith(specialChars[1])) {
             alternateHeading(textarr[i - 1], 1);
-        } else if (containOnly(textarr[i], specialChars[4]) && i > 0 && textarr[i].length > 0) {
+        } else if (containOnly(textarr[i], specialChars[4]) && i > 0 && textarr[i].length > 0 && !textarr[i - 1].startsWith(specialChars[1])) {
             alternateHeading(textarr[i - 1], 2);
         }
 
@@ -102,7 +105,7 @@ function addHeading(headerText) {
 
             let headerTag = 'h' + a;
 
-            headerText = headerText.slice(a, headerText.length);
+            headerText = headerText.slice(a+1, headerText.length);
             let header = document.createElement(headerTag);
 
             header.innerText = headerText;
@@ -128,32 +131,36 @@ function alternateHeading(headerText, size) {
     document.getElementById('display-area').appendChild(header);
 }
 
-function createElement(listText, index) {
+function createElement(listText, index, listNum) {
 
-    listText[index] = listText[index].slice(2, listText[index].length);
+    let text = listText[index];
+    text = text.slice(2, text.length);
 
     let element = document.createElement("li");
+    let listTag = listNum + '-list';
 
     //let list = document.getElementById("first-list"); i'd get to know how to make this work
 
     if (listText[index].charAt(0) == specialChars[0]) {
 
-        let header = addHeading(listText[index]);
+        let header = addHeading(text);
 
         element.insertAdjacentElement("beforeend", header);
-        document.getElementById("first-list").appendChild(element);
+        document.getElementById(listTag).appendChild(element);
 
     } else {
-        element.innerText = listText[index];
-        document.getElementById("first-list").appendChild(element);
+        element.innerText = text;
+        document.getElementById(listTag).appendChild(element);
     }
 }
 
-function makeuList() {
+function makeuList(counter) {
+
+    let tag = counter + '-list';
 
     let ulist = document.createElement("ul");
 
-    ulist.setAttribute("id", "first-list");
+    ulist.setAttribute("id", tag);
 
     document.getElementById('display-area').appendChild(ulist);
 }
