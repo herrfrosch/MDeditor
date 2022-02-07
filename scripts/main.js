@@ -1,7 +1,7 @@
 const editPlace = $('#work-place');
 const displayPlace = $('#display-area');
 
-let specialChars = [
+const specialChars = [
     "#",
     "- ",
     "+ ",
@@ -30,7 +30,7 @@ editPlace.on('input', function () {
 
 function containOnly(toCheck, checker) {
     for (let i = 0; i < toCheck.length; i++) {
-        if (toCheck[i] != checker)  return false;
+        if (toCheck[i] != checker) return false;
     }
     return true;
 }
@@ -88,7 +88,13 @@ function readToken(textarr) {
         }
 
         if (flag == false) {
-            addParagraph(textarr[i]);
+
+            if (i > 0 && textarr[i - 1].endsWith(specialChars[6])) {
+                addBrParagraph(textarr[i], textarr[i - 1]);
+            } else {
+                addParagraph(textarr[i]);
+            }
+        
         } else {
             flag = false;
         }
@@ -97,19 +103,17 @@ function readToken(textarr) {
 
 function addHeading(headerText) {
 
-    let limitA = 7;
-
-    for (let a = 0; a < limitA; a++) {
+    for (let a = 0; a < 7; a++) {
 
         if (headerText.charAt(a) != specialChars[0]) {
 
             let headerTag = 'h' + a;
 
-            headerText = headerText.slice(a+1, headerText.length);
+            headerText = headerText.slice(a + 1, headerText.length);
             let header = document.createElement(headerTag);
 
             header.innerText = headerText;
-            a = limitA;
+            a = 7;
 
             return header;
         }
@@ -163,6 +167,19 @@ function makeuList(counter) {
     ulist.setAttribute("id", tag);
 
     document.getElementById('display-area').appendChild(ulist);
+}
+
+function addBrParagraph(text, pervText) {
+
+    let last = document.getElementById('display-area').lastChild;
+
+    document.getElementById('display-area').removeChild(last);
+
+    let par = document.createElement("p");
+
+    par.innerHTML = pervText + '\n' + text;
+
+    document.getElementById('display-area').appendChild(par);
 }
 
 function addParagraph(text) {
