@@ -71,8 +71,19 @@ function readToken(textarr) {
                 switch (a) {
 
                     case 0:
+                        if (i == 0){
+                            
+                        const HEADER = addHeading(textarr[i]);
+
+                        HEADER.classList.add('horizonLine');
+                        DISP_PLACE.appendChild(HEADER);
+
+                        } else {
+
                         const HEADER = addHeading(textarr[i]);
                         DISP_PLACE.appendChild(HEADER);
+
+                        }
                         break;
                     case 1:
                     case 2:
@@ -117,12 +128,18 @@ function readToken(textarr) {
             alternateHeading(textarr[i - 1], 2);
         }
 
+        if ( i > 0 && (containOnly(textarr[i], SPECIAL_CHAR[7]) || containOnly(textarr[i], SPECIAL_CHAR[8]) || containOnly(textarr[i], SPECIAL_CHAR[4])) && textarr[i] !== "" && textarr[i-1] === "") {
+            
+            flag = true;
+            addHorizonLine();
+        }
+
         if (flag == false) {
 
             if (i > 0 && textarr[i - 1].endsWith(SPECIAL_CHAR[6])) {
 
-                const perviousPar = document.getElementById('display-area').lastChild.innerText;
-                addBrParagraph(textarr[i], perviousPar);
+                const PERVIOUS_PAR = DISP_PLACE.lastChild.innerText;
+                addBrParagraph(textarr[i], PERVIOUS_PAR);
 
             } else {
                 addParagraph(textarr[i]);
@@ -250,4 +267,11 @@ function createBlockquote(blockNum) {
     BLOCK.setAttribute("id", TAG);
 
     DISP_PLACE.appendChild(BLOCK);
+}
+
+function addHorizonLine() {
+
+    DISP_PLACE.removeChild(DISP_PLACE.lastChild);
+    const LAST = DISP_PLACE.lastChild;
+    LAST.classList.add("horizonLine");
 }

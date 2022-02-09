@@ -75,3 +75,10 @@ body{
     border-color: rgba(130, 130, 130, 0.5);
     padding: 10px 2px;
 }
+
+.horizonLine{
+    border-style: none none solid none;
+    border-width: 2px;
+    border-color: rgba(130, 130, 130, 0.5);
+    padding-bottom: 5px;
+}
