@@ -1,7 +1,7 @@
-const editPlace = $('#work-place');
-const displayPlace = $('#display-area');
+const EDIT_PLACE = document.getElementById('work-place');
+const DISP_PLACE = document.getElementById('display-area');
 
-const specialChars = [
+const SPECIAL_CHAR = [
     "#",
     "- ",
     "+ ",
@@ -19,13 +19,12 @@ const specialChars = [
     "]"
 ];
 
-editPlace.on('input', function () {
+EDIT_PLACE.addEventListener('input', function () {
 
-    displayPlace.html('');
+    DISP_PLACE.innerHTML = '';
 
-    const rawTxt = editPlace.val();
-
-    parser(rawTxt);
+    const RAW_TEXT = EDIT_PLACE.value;
+    parser(RAW_TEXT);
 });
 
 function containOnly(toCheck, checker) {
@@ -37,9 +36,9 @@ function containOnly(toCheck, checker) {
 
 function parser(text) {
 
-    const mdCode = text.split('\n');
+    const MD_CODE = text.split('\n');
 
-    readToken(mdCode);
+    readToken(MD_CODE);
 }
 
 
@@ -48,12 +47,13 @@ function readToken(textarr) {
     let flag = false;
 
     let ulistCounter = 0;
+    let blockQCounter = 0;
 
     for (let i = 0; i < textarr.length; i++) {
 
-        for (let a = 0; a < 5; a++) {
+        for (let a = 0; a < 6; a++) {
 
-            if (textarr[i].startsWith(specialChars[a])) {
+            if (textarr[i].startsWith(SPECIAL_CHAR[a])) {
 
                 flag = true;
 
@@ -61,11 +61,11 @@ function readToken(textarr) {
 
                     case 0:
                         let header = addHeading(textarr[i]);
-                        document.getElementById('display-area').appendChild(header);
+                        DISP_PLACE.appendChild(header);
                         break;
                     case 1:
                     case 2:
-                        if (i > 0 && (textarr[i - 1].startsWith(specialChars[1]) || textarr[i - 1].startsWith(specialChars[2]))) {
+                        if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]))) {
                             createElement(textarr, i, ulistCounter);
                         } else {
                             ulistCounter++;
@@ -73,23 +73,28 @@ function readToken(textarr) {
                             createElement(textarr, i, ulistCounter);
                         }
                         break;
-                    /*case 4:
-                        //quote(textarr[i]);
+                    case 5:
+                        if(i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[5]))){
+                            addQuote(textarr[i], blockQCounter);
+                        } else {
+                            blockQCounter++;
+                            createBlockquote(blockQCounter);
+                            addQuote(textarr[i], blockQCounter);
+                        }
                         break;
-                    */
                 }
             }
         }
 
-        if (containOnly(textarr[i], specialChars[3]) && i > 0 && textarr[i].length > 0 && !textarr[i - 1].startsWith(specialChars[1])) {
+        if (containOnly(textarr[i], SPECIAL_CHAR[3]) && i > 0 && textarr[i].length > 0 && !textarr[i - 1].startsWith(SPECIAL_CHAR[1])) {
             alternateHeading(textarr[i - 1], 1);
-        } else if (containOnly(textarr[i], specialChars[4]) && i > 0 && textarr[i].length > 0 && !textarr[i - 1].startsWith(specialChars[1])) {
+        } else if (containOnly(textarr[i], SPECIAL_CHAR[4]) && i > 0 && textarr[i].length > 0 && !textarr[i - 1].startsWith(SPECIAL_CHAR[1])) {
             alternateHeading(textarr[i - 1], 2);
         }
 
         if (flag == false) {
 
-            if (i > 0 && textarr[i - 1].endsWith(specialChars[6])) {
+            if (i > 0 && textarr[i - 1].endsWith(SPECIAL_CHAR[6])) {
 
                 const perviousPar = document.getElementById('display-area').lastChild.innerText;
                 addBrParagraph(textarr[i],perviousPar);
@@ -108,7 +113,7 @@ function addHeading(headerText) {
 
     for (let a = 0; a < 7; a++) {
 
-        if (headerText.charAt(a) != specialChars[0]) {
+        if (headerText.charAt(a) != SPECIAL_CHAR[0]) {
 
             const headerTag = 'h' + a;
 
@@ -131,11 +136,10 @@ function alternateHeading(headerText, size) {
 
     header.innerText = headerText;
 
-    const last = document.getElementById('display-area').lastChild;
+    const last = DISP_PLACE.lastChild;
 
-    document.getElementById('display-area').removeChild(last);
-
-    document.getElementById('display-area').appendChild(header);
+    DISP_PLACE.removeChild(last);
+    DISP_PLACE.appendChild(header);
 }
 
 function createElement(listText, index, listNum) {
@@ -146,9 +150,7 @@ function createElement(listText, index, listNum) {
     let element = document.createElement("li");
     let listTag = listNum + '-list';
 
-    //let list = document.getElementById("first-list"); i'd get to know how to make this work
-
-    if (text.charAt(0) == specialChars[0]) {
+    if (text.charAt(0) == SPECIAL_CHAR[0]) {
 
         let header = addHeading(text);
 
@@ -169,28 +171,48 @@ function makeuList(counter) {
 
     ulist.setAttribute("id", tag);
 
-    document.getElementById('display-area').appendChild(ulist);
+    DISP_PLACE.appendChild(ulist);
 }
 
 function addBrParagraph(text, pervText) {
 
-    let last = document.getElementById('display-area').lastChild;
-
-    document.getElementById('display-area').removeChild(last);
+    DISP_PLACE.removeChild(DISP_PLACE.lastChild);
 
     let par = document.createElement("p");
-
     par.innerHTML = pervText + '\n' + text;
 
-    document.getElementById('display-area').appendChild(par);
+    DISP_PLACE.appendChild(par);
 }
 
 function addParagraph(text) {
 
     let par = document.createElement("p");
-
     par.innerText = text;
 
-    document.getElementById('display-area').appendChild(par);
+    DISP_PLACE.appendChild(par);
+}
 
+function addQuote(quote, blockNum){
+
+    quote = quote.slice(1,quote.length);
+    
+    let quoteLine = document.createElement("p");
+    quoteLine.innerText = quote;
+
+    const TAG = blockNum + '-bq';
+    const BLOCK = document.getElementById(TAG);
+
+    BLOCK.appendChild(quoteLine);
+}
+
+function createBlockquote(blockNum){
+
+    const TAG = blockNum + '-bq';
+
+    const BLOCK = document.createElement("blockquote");
+
+    BLOCK.classList.add("bquote");
+    BLOCK.setAttribute("id", TAG);
+
+    DISP_PLACE.appendChild(BLOCK);
 }
