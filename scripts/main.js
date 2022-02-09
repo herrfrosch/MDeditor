@@ -1,7 +1,7 @@
 const editPlace = $('#work-place');
 const displayPlace = $('#display-area');
 
-let specialChars = [
+const specialChars = [
     "#",
     "- ",
     "+ ",
@@ -23,21 +23,21 @@ editPlace.on('input', function () {
 
     displayPlace.html('');
 
-    let rawTxt = editPlace.val();
+    const rawTxt = editPlace.val();
 
     parser(rawTxt);
 });
 
 function containOnly(toCheck, checker) {
     for (let i = 0; i < toCheck.length; i++) {
-        if (toCheck[i] != checker)  return false;
+        if (toCheck[i] != checker) return false;
     }
     return true;
 }
 
 function parser(text) {
 
-    let mdCode = text.split('\n');
+    const mdCode = text.split('\n');
 
     readToken(mdCode);
 }
@@ -88,7 +88,16 @@ function readToken(textarr) {
         }
 
         if (flag == false) {
-            addParagraph(textarr[i]);
+
+            if (i > 0 && textarr[i - 1].endsWith(specialChars[6])) {
+
+                const perviousPar = document.getElementById('display-area').lastChild.innerText;
+                addBrParagraph(textarr[i],perviousPar);
+                
+            } else {
+                addParagraph(textarr[i]);
+            }
+        
         } else {
             flag = false;
         }
@@ -97,19 +106,17 @@ function readToken(textarr) {
 
 function addHeading(headerText) {
 
-    let limitA = 7;
-
-    for (let a = 0; a < limitA; a++) {
+    for (let a = 0; a < 7; a++) {
 
         if (headerText.charAt(a) != specialChars[0]) {
 
-            let headerTag = 'h' + a;
+            const headerTag = 'h' + a;
 
-            headerText = headerText.slice(a+1, headerText.length);
+            headerText = headerText.slice(a + 1, headerText.length);
             let header = document.createElement(headerTag);
 
             header.innerText = headerText;
-            a = limitA;
+            a = 7;
 
             return header;
         }
@@ -118,13 +125,13 @@ function addHeading(headerText) {
 
 function alternateHeading(headerText, size) {
 
-    let tag = 'h' + size;
+    const tag = 'h' + size;
 
-    let header = document.createElement(tag);
+    const header = document.createElement(tag);
 
     header.innerText = headerText;
 
-    let last = document.getElementById('display-area').lastChild;
+    const last = document.getElementById('display-area').lastChild;
 
     document.getElementById('display-area').removeChild(last);
 
@@ -141,7 +148,7 @@ function createElement(listText, index, listNum) {
 
     //let list = document.getElementById("first-list"); i'd get to know how to make this work
 
-    if (listText[index].charAt(0) == specialChars[0]) {
+    if (text.charAt(0) == specialChars[0]) {
 
         let header = addHeading(text);
 
@@ -163,6 +170,19 @@ function makeuList(counter) {
     ulist.setAttribute("id", tag);
 
     document.getElementById('display-area').appendChild(ulist);
+}
+
+function addBrParagraph(text, pervText) {
+
+    let last = document.getElementById('display-area').lastChild;
+
+    document.getElementById('display-area').removeChild(last);
+
+    let par = document.createElement("p");
+
+    par.innerHTML = pervText + '\n' + text;
+
+    document.getElementById('display-area').appendChild(par);
 }
 
 function addParagraph(text) {
