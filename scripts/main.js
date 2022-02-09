@@ -23,7 +23,7 @@ editPlace.on('input', function () {
 
     displayPlace.html('');
 
-    let rawTxt = editPlace.val();
+    const rawTxt = editPlace.val();
 
     parser(rawTxt);
 });
@@ -37,7 +37,7 @@ function containOnly(toCheck, checker) {
 
 function parser(text) {
 
-    let mdCode = text.split('\n');
+    const mdCode = text.split('\n');
 
     readToken(mdCode);
 }
@@ -90,7 +90,10 @@ function readToken(textarr) {
         if (flag == false) {
 
             if (i > 0 && textarr[i - 1].endsWith(specialChars[6])) {
-                addBrParagraph(textarr[i], textarr[i - 1]);
+
+                const perviousPar = document.getElementById('display-area').lastChild.innerText;
+                addBrParagraph(textarr[i],perviousPar);
+                
             } else {
                 addParagraph(textarr[i]);
             }
@@ -107,7 +110,7 @@ function addHeading(headerText) {
 
         if (headerText.charAt(a) != specialChars[0]) {
 
-            let headerTag = 'h' + a;
+            const headerTag = 'h' + a;
 
             headerText = headerText.slice(a + 1, headerText.length);
             let header = document.createElement(headerTag);
@@ -122,13 +125,13 @@ function addHeading(headerText) {
 
 function alternateHeading(headerText, size) {
 
-    let tag = 'h' + size;
+    const tag = 'h' + size;
 
-    let header = document.createElement(tag);
+    const header = document.createElement(tag);
 
     header.innerText = headerText;
 
-    let last = document.getElementById('display-area').lastChild;
+    const last = document.getElementById('display-area').lastChild;
 
     document.getElementById('display-area').removeChild(last);
 
@@ -145,7 +148,7 @@ function createElement(listText, index, listNum) {
 
     //let list = document.getElementById("first-list"); i'd get to know how to make this work
 
-    if (listText[index].charAt(0) == specialChars[0]) {
+    if (text.charAt(0) == specialChars[0]) {
 
         let header = addHeading(text);
 
