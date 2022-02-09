@@ -46,10 +46,21 @@ function readToken(textarr) {
 
     let flag = false;
 
-    let ulistCounter = 0;
+    let firstChar;
+    let earlierChar;
+
+    let listCounter = 0;
     let blockQCounter = 0;
 
     for (let i = 0; i < textarr.length; i++) {
+
+        firstChar = textarr[i].charAt(0);
+        firstChar = parseInt(firstChar);
+
+        if (i > 0) {
+            earlierChar = textarr[i - 1].charAt(0);
+            earlierChar = parseInt(earlierChar);
+        }
 
         for (let a = 0; a < 6; a++) {
 
@@ -60,21 +71,21 @@ function readToken(textarr) {
                 switch (a) {
 
                     case 0:
-                        let header = addHeading(textarr[i]);
-                        DISP_PLACE.appendChild(header);
+                        const HEADER = addHeading(textarr[i]);
+                        DISP_PLACE.appendChild(HEADER);
                         break;
                     case 1:
                     case 2:
                         if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]))) {
-                            createElement(textarr, i, ulistCounter);
+                            createElement(textarr, i, listCounter);
                         } else {
-                            ulistCounter++;
-                            makeuList(ulistCounter);
-                            createElement(textarr, i, ulistCounter);
+                            listCounter++;
+                            makeuList(listCounter);
+                            createElement(textarr, i, listCounter);
                         }
                         break;
                     case 5:
-                        if(i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[5]))){
+                        if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[5]))) {
                             addQuote(textarr[i], blockQCounter);
                         } else {
                             blockQCounter++;
@@ -84,6 +95,20 @@ function readToken(textarr) {
                         break;
                 }
             }
+        }
+
+        if ((i > 0 && !isNaN(firstChar) && isNaN(earlierChar)) || (i == 0 && !isNaN(firstChar))) {
+
+            flag = true;
+
+            listCounter++;
+            makeoList(listCounter);
+            createElement(textarr, i, listCounter);
+
+        } else if (i > 0 && !isNaN(firstChar) && !isNaN(earlierChar)) {
+
+            flag = true;
+            createElement(textarr, i, listCounter);
         }
 
         if (containOnly(textarr[i], SPECIAL_CHAR[3]) && i > 0 && textarr[i].length > 0 && !textarr[i - 1].startsWith(SPECIAL_CHAR[1])) {
@@ -97,12 +122,12 @@ function readToken(textarr) {
             if (i > 0 && textarr[i - 1].endsWith(SPECIAL_CHAR[6])) {
 
                 const perviousPar = document.getElementById('display-area').lastChild.innerText;
-                addBrParagraph(textarr[i],perviousPar);
-                
+                addBrParagraph(textarr[i], perviousPar);
+
             } else {
                 addParagraph(textarr[i]);
             }
-        
+
         } else {
             flag = false;
         }
@@ -174,6 +199,16 @@ function makeuList(counter) {
     DISP_PLACE.appendChild(ulist);
 }
 
+function makeoList(counter) {
+
+    let tag = counter + '-list';
+    let olist = document.createElement("ol");
+
+    olist.setAttribute("id", tag);
+
+    DISP_PLACE.appendChild(olist);
+}
+
 function addBrParagraph(text, pervText) {
 
     DISP_PLACE.removeChild(DISP_PLACE.lastChild);
@@ -192,10 +227,10 @@ function addParagraph(text) {
     DISP_PLACE.appendChild(par);
 }
 
-function addQuote(quote, blockNum){
+function addQuote(quote, blockNum) {
 
-    quote = quote.slice(1,quote.length);
-    
+    quote = quote.slice(1, quote.length);
+
     let quoteLine = document.createElement("p");
     quoteLine.innerText = quote;
 
@@ -205,7 +240,7 @@ function addQuote(quote, blockNum){
     BLOCK.appendChild(quoteLine);
 }
 
-function createBlockquote(blockNum){
+function createBlockquote(blockNum) {
 
     const TAG = blockNum + '-bq';
 
