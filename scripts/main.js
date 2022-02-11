@@ -285,26 +285,26 @@ function readEmp() {
     let counter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
-    const EM_REGEX = /[\*]+[\!-\}\ ]+?[\*]+/gi;
+    const REGEX = /[\*|\_]+[\!-\}\ ]+?[\*|\_]+/gi;
 
 
     let matchText = new Array();
     let replacementText = new Array();
 
-    matchText = TEXT.match(EM_REGEX);
+    matchText = TEXT.match(REGEX);
 
     if (matchText != undefined) {
         matchText.forEach((element, index) => { replacementText[index] = element.slice(1, element.length - 1); });
     }
 
-    let result = TEXT.replace(EM_REGEX, () => {
-
-        let tag, endTag;
+    let result = TEXT.replace(REGEX, () => {
         counter++;
+
+        let charNum = (replacementText[counter].charAt(0) == SPECIAL_CHAR[7]) ? 7 : 8; 
 
         for (let i = 0; i < 3; i++) {
 
-            if (replacementText[counter].charAt(i) != SPECIAL_CHAR[7]) {
+            if (replacementText[counter].charAt(i) != SPECIAL_CHAR[charNum]) {
 
                 switch (i) {
 
