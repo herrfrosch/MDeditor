@@ -39,8 +39,10 @@ function parser(text) {
     const MD_CODE = text.split('\n');
 
     readToken(MD_CODE);
+    readEmp();
 }
 
+//parser main loop
 
 function readToken(textarr) {
 
@@ -71,17 +73,17 @@ function readToken(textarr) {
                 switch (a) {
 
                     case 0:
-                        if (i == 0){
-                            
-                        const HEADER = addHeading(textarr[i]);
+                        if (i == 0) {
 
-                        HEADER.classList.add('horizonLine');
-                        DISP_PLACE.appendChild(HEADER);
+                            const HEADER = addHeading(textarr[i]);
+
+                            HEADER.classList.add('horizonLine');
+                            DISP_PLACE.appendChild(HEADER);
 
                         } else {
 
-                        const HEADER = addHeading(textarr[i]);
-                        DISP_PLACE.appendChild(HEADER);
+                            const HEADER = addHeading(textarr[i]);
+                            DISP_PLACE.appendChild(HEADER);
 
                         }
                         break;
@@ -128,8 +130,8 @@ function readToken(textarr) {
             alternateHeading(textarr[i - 1], 2);
         }
 
-        if ( i > 0 && (containOnly(textarr[i], SPECIAL_CHAR[7]) || containOnly(textarr[i], SPECIAL_CHAR[8]) || containOnly(textarr[i], SPECIAL_CHAR[4])) && textarr[i] !== "" && textarr[i-1] === "") {
-            
+        if (i > 0 && (containOnly(textarr[i], SPECIAL_CHAR[7]) || containOnly(textarr[i], SPECIAL_CHAR[8]) || containOnly(textarr[i], SPECIAL_CHAR[4])) && textarr[i] !== "" && textarr[i - 1] === "") {
+
             flag = true;
             addHorizonLine();
         }
@@ -251,7 +253,7 @@ function addQuote(quote, blockNum) {
     let quoteLine = document.createElement("p");
     quoteLine.innerText = quote;
 
-    const TAG = blockNum + '-bq';
+    const TAG = blockNum + '-bqr';
     const BLOCK = document.getElementById(TAG);
 
     BLOCK.appendChild(quoteLine);
@@ -274,4 +276,28 @@ function addHorizonLine() {
     DISP_PLACE.removeChild(DISP_PLACE.lastChild);
     const LAST = DISP_PLACE.lastChild;
     LAST.classList.add("horizonLine");
+}
+
+//parser emphasis function
+
+function readEmp() {
+
+    let counter = -1;
+
+    const TEXT = DISP_PLACE.innerHTML;
+    const EM_REGEX = /[\*]+?[\!-\}\ ]+?[\*]+/gi;
+
+    let matchText = new Array();
+    let replacementText = new Array();
+
+    matchText = TEXT.match(EM_REGEX);
+    matchText.forEach((element, index) => { replacementText[index] = element.slice(1, element.length - 1); });
+
+    let result = TEXT.replace(EM_REGEX, () => {
+        counter++;
+        replacementText[counter] = '<em>' + replacementText[counter] + '</em>';
+        return replacementText[counter];
+    });
+
+    DISP_PLACE.innerHTML = result;
 }
