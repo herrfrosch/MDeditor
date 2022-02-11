@@ -278,24 +278,58 @@ function addHorizonLine() {
     LAST.classList.add("horizonLine");
 }
 
-//parser emphasis function
+//parser emphasis function (italics, bold)
 
 function readEmp() {
 
     let counter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
-    const EM_REGEX = /[\*]+?[\!-\}\ ]+?[\*]+/gi;
+    const EM_REGEX = /[\*]+[\!-\}\ ]+?[\*]+/gi;
+
 
     let matchText = new Array();
     let replacementText = new Array();
 
     matchText = TEXT.match(EM_REGEX);
-    matchText.forEach((element, index) => { replacementText[index] = element.slice(1, element.length - 1); });
+
+    if (matchText != undefined) {
+        matchText.forEach((element, index) => { replacementText[index] = element.slice(1, element.length - 1); });
+    }
 
     let result = TEXT.replace(EM_REGEX, () => {
+
+        let tag, endTag;
         counter++;
-        replacementText[counter] = '<em>' + replacementText[counter] + '</em>';
+
+        for (let i = 0; i < 3; i++) {
+
+            if (replacementText[counter].charAt(i) != SPECIAL_CHAR[7]) {
+
+                switch (i) {
+
+                    case 0:
+                        tag = '<em>';
+                        endTag = '</em>';
+                        break;
+
+                    case 1:
+                        tag = '<strong>';
+                        endTag = '</strong>';
+                        replacementText[counter] = replacementText[counter].slice(1, replacementText[counter].length - 1);
+                        break;
+
+                    case 2:
+                        tag = '<strong><em>';
+                        endTag = '</strong></em>';
+                        replacementText[counter] = replacementText[counter].slice(2, replacementText[counter].length - 2);
+                        break;
+                }
+                i += 3;
+            }
+        }
+
+        replacementText[counter] = tag + replacementText[counter] + endTag;
         return replacementText[counter];
     });
 
