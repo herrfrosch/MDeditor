@@ -39,7 +39,7 @@ function parser(text) {
     const MD_CODE = text.split('\n');
 
     readToken(MD_CODE);
-    readEmp();
+    readInner();
 }
 
 //parser main loop
@@ -278,54 +278,64 @@ function addHorizonLine() {
     LAST.classList.add("horizonLine");
 }
 
-//parser emphasis function (italics, bold)
+//parser inner text function (italics, bold, code, images, links)
 
-function readEmp() {
+function readInner() {
 
     let counter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
-    const REGEX = /[\*|\_]+[\!-\}\ ]+?[\*|\_]+/gi;
-
+    const REGEX = /[\*|\_|\`]+[\!-\}\ ]+?[\*|\_|\`]+/gi;
 
     let matchText = new Array();
     let replacementText = new Array();
+    let codeFlag = new Array();
 
     matchText = TEXT.match(REGEX);
 
     if (matchText != undefined) {
-        matchText.forEach((element, index) => { replacementText[index] = element.slice(1, element.length - 1); });
+
+        matchText.forEach((element, index) => {
+            codeFlag[index] = (element.charAt(0) == SPECIAL_CHAR[12]) ? true : false;
+            replacementText[index] = element.slice(1, element.length - 1);
+        });
     }
 
     let result = TEXT.replace(REGEX, () => {
         counter++;
 
-        let charNum = (replacementText[counter].charAt(0) == SPECIAL_CHAR[7]) ? 7 : 8; 
+        if (codeFlag[counter] == true) {
+            tag = '<code>';
+            endTag = '</code>';
+        } else {
 
-        for (let i = 0; i < 3; i++) {
+            let charNum = (replacementText[counter].charAt(0) == SPECIAL_CHAR[7]) ? 7 : 8;
 
-            if (replacementText[counter].charAt(i) != SPECIAL_CHAR[charNum]) {
+            for (let i = 0; i < 3; i++) {
 
-                switch (i) {
+                if (replacementText[counter].charAt(i) != SPECIAL_CHAR[charNum]) {
 
-                    case 0:
-                        tag = '<em>';
-                        endTag = '</em>';
-                        break;
+                    switch (i) {
 
-                    case 1:
-                        tag = '<strong>';
-                        endTag = '</strong>';
-                        replacementText[counter] = replacementText[counter].slice(1, replacementText[counter].length - 1);
-                        break;
+                        case 0:
+                            tag = '<em>';
+                            endTag = '</em>';
+                            break;
 
-                    case 2:
-                        tag = '<strong><em>';
-                        endTag = '</strong></em>';
-                        replacementText[counter] = replacementText[counter].slice(2, replacementText[counter].length - 2);
-                        break;
+                        case 1:
+                            tag = '<strong>';
+                            endTag = '</strong>';
+                            replacementText[counter] = replacementText[counter].slice(1, replacementText[counter].length - 1);
+                            break;
+
+                        case 2:
+                            tag = '<strong><em>';
+                            endTag = '</strong></em>';
+                            replacementText[counter] = replacementText[counter].slice(2, replacementText[counter].length - 2);
+                            break;
+                    }
+                    i += 3;
                 }
-                i += 3;
             }
         }
 
