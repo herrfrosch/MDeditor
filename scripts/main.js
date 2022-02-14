@@ -253,7 +253,7 @@ function addQuote(quote, blockNum) {
     let quoteLine = document.createElement("p");
     quoteLine.innerText = quote;
 
-    const TAG = blockNum + '-bqr';
+    const TAG = blockNum + '-bq';
     const BLOCK = document.getElementById(TAG);
 
     BLOCK.appendChild(quoteLine);
