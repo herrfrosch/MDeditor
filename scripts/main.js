@@ -282,6 +282,12 @@ function addHorizonLine() {
 
 function readInner() {
 
+    formatEmp();
+    formatLink();
+}
+
+function formatEmp() {
+
     let counter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
@@ -341,6 +347,45 @@ function readInner() {
 
         replacementText[counter] = tag + replacementText[counter] + endTag;
         return replacementText[counter];
+    });
+
+    DISP_PLACE.innerHTML = result;
+}
+
+function formatLink() {
+
+    let counter = -1;
+
+    const TEXT = DISP_PLACE.innerHTML;
+    const REGEX = /\[+[\!-\}\ ]+?\]+?\(+[\!-\}\ ]+?\)/gi;
+
+    let matchText = new Array();
+    let linkName = new Array();
+    let link = new Array();
+    let tempList = new Array();
+    let replacement = new Array();
+
+    matchText = TEXT.match(REGEX);
+
+    if (matchText != undefined) {
+        matchText.forEach((element, index) => {
+            tempList[index] = element.split('](');
+        });
+    }
+
+    if (tempList != undefined) {
+        tempList.forEach((element, index) => {
+
+            linkName[index] = element[0].slice(1);
+            link[index] = element[1].slice(0, -1);
+
+        });
+    }
+
+    let result = TEXT.replace(REGEX, () => {
+        counter++;
+        replacement[counter] = '<a href="' + link[counter] + '">' + linkName[counter] + '</a>';
+        return replacement[counter];
     });
 
     DISP_PLACE.innerHTML = result;
