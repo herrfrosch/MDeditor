@@ -284,6 +284,7 @@ function readInner() {
 
     formatEmp();
     formatLink();
+    formatAltLink();
 }
 
 function formatEmp() {
@@ -387,6 +388,29 @@ function formatLink() {
         replacement[counter] = '<a href="' + link[counter] + '">' + linkName[counter] + '</a>';
         return replacement[counter];
     });
+
+    DISP_PLACE.innerHTML = result;
+}
+
+function formatAltLink(){
+
+    let counter = -1;
+
+    const TEXT = DISP_PLACE.innerHTML;
+    const REGEX = /(&lt;){1}.{1,}(&gt;)/gi
+
+    let matchText = new Array();
+    matchText = TEXT.match(REGEX);
+
+    let result = TEXT.replace(REGEX, () => {
+
+        counter++;
+
+        let innerLink = matchText[counter].slice(4,-4);
+        let link = '<a href="' + innerLink + '">' + innerLink + '</a>';
+
+        return link;
+    })
 
     DISP_PLACE.innerHTML = result;
 }
