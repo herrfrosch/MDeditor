@@ -397,7 +397,7 @@ function formatAltLink(){
     let counter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
-    const REGEX = /(&lt;){1}.{1,}(&gt;)/gi
+    const REGEX = /(&lt;){1}.{1,}?(&gt;)/gi
 
     let matchText = new Array();
     matchText = TEXT.match(REGEX);
