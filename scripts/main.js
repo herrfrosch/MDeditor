@@ -292,7 +292,7 @@ function formatEmp() {
     let counter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
-    const REGEX = /[\*|\_|\`]+[\!-\}\ ]+?[\*|\_|\`]+/gi;
+    const REGEX = /[\*|\_|\`]+.{1,}?[\*|\_|\`]+/gi;
 
     let matchText = new Array();
     let replacementText = new Array();
@@ -358,7 +358,7 @@ function formatLink() {
     let counter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
-    const REGEX = /\[+[\!-\}\ ]+?\]+?\(+[\!-\}\ ]+?\)/gi;
+    const REGEX = /\[+.{1,}?\]+?\(+.{1,}?\)/gi;
 
     let matchText = new Array();
     let linkName = new Array();
