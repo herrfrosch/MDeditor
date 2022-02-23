@@ -356,7 +356,7 @@ function formatEmp() {
 function formatLink() {
 
     let counter = -1;
-
+   
     const TEXT = DISP_PLACE.innerHTML;
     const REGEX = /\[+.{1,}?\]+?\(+.{1,}?\)/gi;
 
@@ -365,6 +365,8 @@ function formatLink() {
     let link = new Array();
     let tempList = new Array();
     let replacement = new Array();
+    let titleAttr = new Array();
+    let titleFlag = new Array();
 
     matchText = TEXT.match(REGEX);
 
@@ -383,9 +385,35 @@ function formatLink() {
         });
     }
 
+    link.forEach((element, index) => {
+        const REG = /\"{1}.{1,}?\"{1}?/gi;
+
+        titleAttr[index] = element.match(REG);
+        
+        if (titleAttr[index] != null){
+
+            link[index] = link[index].replace(titleAttr[index], '').replace(' ', '');
+            titleAttr[index] = titleAttr[index][0].slice(1,-1);
+            
+            titleFlag[index] = true;
+        } else {
+            titleFlag[index] = false;
+        } 
+
+    })
+
     let result = TEXT.replace(REGEX, () => {
         counter++;
-        replacement[counter] = '<a href="' + link[counter] + '">' + linkName[counter] + '</a>';
+        console.log(titleFlag[counter])
+
+        if (titleFlag[counter] == true){
+            console.log(titleAttr[counter]);
+            console.log(link[counter]);
+            replacement[counter] = '<a href="' + link[counter] + '\" title=\"' + titleAttr[counter] + '">' + linkName[counter] + '</a>';            
+        } else {
+            replacement[counter] = '<a href="' + link[counter] + '">' + linkName[counter] + '</a>';
+        }
+
         return replacement[counter];
     });
 
