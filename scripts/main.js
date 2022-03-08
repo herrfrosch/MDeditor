@@ -450,17 +450,33 @@ function formatImage() {
     const TEXT = DISP_PLACE.innerHTML;
     const REGEX = /\!+\[+.{1,}?\]+?\(+.{1,}?\)/gi;
     const INNER_REG = /\(+.{1,}?\)/gi;
+    const TITLE_REG = /\"{1}.{1,}?\"{1}?/gi;
 
     let matchText = new Array();
     matchText = TEXT.match(REGEX);
 
-    let result = TEXT.replace(REGEX, () => {console.log('hej');
+    let result = TEXT.replace(REGEX, () => {
+
         counter++;
+
+        let img;
         let imageSrc = matchText[counter].match(INNER_REG);
-        imageSrc = imageSrc[0].replace('(','');
-        let img = '<img src="' + imageSrc + '"/>';
+        let imgTitle = imageSrc[0].match(TITLE_REG);
+
+        if (imgTitle != null) {
+            imageSrc = imageSrc[0].replace(imgTitle[0], '')
+                .replace('(', '')
+                .replace(')', '')
+                .replace(' ', '');
+            imgTitle = imgTitle[0].replace('"', '');
+            img = '<img src="' + imageSrc + '" title="' + imgTitle + '"/>';
+        } else {
+            imageSrc = imageSrc[0].replace('(', '').replace(')', '');
+            img = '<img src="' + imageSrc + '"/>';
+        }
+
         return img;
     })
-console.log(result)
+
     DISP_PLACE.innerHTML = result;
 }
