@@ -283,6 +283,7 @@ function addHorizonLine() {
 function readInner() {
 
     formatEmp();
+    formatImage();
     formatLink();
     formatAltLink();
 }
@@ -356,7 +357,7 @@ function formatEmp() {
 function formatLink() {
 
     let counter = -1;
-   
+
     const TEXT = DISP_PLACE.innerHTML;
     const REGEX = /\[+.{1,}?\]+?\(+.{1,}?\)/gi;
 
@@ -389,27 +390,26 @@ function formatLink() {
         const REG = /\"{1}.{1,}?\"{1}?/gi;
 
         titleAttr[index] = element.match(REG);
-        
-        if (titleAttr[index] != null){
+
+        if (titleAttr[index] != null) {
 
             link[index] = link[index].replace(titleAttr[index], '').replace(' ', '');
-            titleAttr[index] = titleAttr[index][0].slice(1,-1);
-            
+            titleAttr[index] = titleAttr[index][0].slice(1, -1);
+
             titleFlag[index] = true;
         } else {
             titleFlag[index] = false;
-        } 
+        }
 
     })
 
     let result = TEXT.replace(REGEX, () => {
         counter++;
-        console.log(titleFlag[counter])
 
-        if (titleFlag[counter] == true){
+        if (titleFlag[counter] == true) {
             console.log(titleAttr[counter]);
             console.log(link[counter]);
-            replacement[counter] = '<a href="' + link[counter] + '\" title=\"' + titleAttr[counter] + '">' + linkName[counter] + '</a>';            
+            replacement[counter] = '<a href="' + link[counter] + '\" title=\"' + titleAttr[counter] + '">' + linkName[counter] + '</a>';
         } else {
             replacement[counter] = '<a href="' + link[counter] + '">' + linkName[counter] + '</a>';
         }
@@ -420,7 +420,7 @@ function formatLink() {
     DISP_PLACE.innerHTML = result;
 }
 
-function formatAltLink(){
+function formatAltLink() {
 
     let counter = -1;
 
@@ -434,11 +434,33 @@ function formatAltLink(){
 
         counter++;
 
-        let innerLink = matchText[counter].slice(4,-4);
+        let innerLink = matchText[counter].slice(4, -4);
         let link = '<a href="' + innerLink + '">' + innerLink + '</a>';
 
         return link;
     })
 
+    DISP_PLACE.innerHTML = result;
+}
+
+function formatImage() {
+
+    let counter = -1;
+
+    const TEXT = DISP_PLACE.innerHTML;
+    const REGEX = /\!+\[+.{1,}?\]+?\(+.{1,}?\)/gi;
+    const INNER_REG = /\(+.{1,}?\)/gi;
+
+    let matchText = new Array();
+    matchText = TEXT.match(REGEX);
+
+    let result = TEXT.replace(REGEX, () => {console.log('hej');
+        counter++;
+        let imageSrc = matchText[counter].match(INNER_REG);
+        imageSrc = imageSrc[0].replace('(','');
+        let img = '<img src="' + imageSrc + '"/>';
+        return img;
+    })
+console.log(result)
     DISP_PLACE.innerHTML = result;
 }
