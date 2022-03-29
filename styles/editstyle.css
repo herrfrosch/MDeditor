@@ -29,18 +29,8 @@ body{
 }
 
 .bg-MDe{
-  /*  background-color: #bee5fc;*/
   background-color: rgba(36, 36, 41, 0);
 }
-
-/*#text-functions{
-    background-color: #ffffff;
-    padding: 1vw;
-    border-radius: 20px;
-    -webkit-box-shadow: 0px 10px 21px -9px rgba(36, 36, 41, 1);
-    -moz-box-shadow: 0px 10px 21px -9px rgba(36, 36, 41, 1);
-    box-shadow: 0px 10px 21px -9px rgba(36, 36, 41, 1);
-}*/
 
 #work-place{
     color: black;
@@ -55,8 +45,8 @@ body{
     box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
 }
 
-
 #display-area{
+    overflow-x: auto;
     background-color: #ffffff;
     height: 85vh;
     padding: 1vw;
@@ -81,4 +71,22 @@ body{
     border-width: 2px;
     border-color: rgba(130, 130, 130, 0.5);
     padding-bottom: 5px;
+}
+
+.bttn{
+    font-size: 15px;
+    margin-right: 1vw;
+    margin-top: 1vw;
+    padding: 5px;
+    background-color: rgba(130, 130, 130, 0);
+    border-style: none solid none solid;
+    border-width: 2px;
+    border-color: #000;
+    border-radius: 10px;
+    transition: all .2s ease-in-out;
+}
+
+.bttn:hover{
+    background-color: #000;
+    color: #fff;
 }
