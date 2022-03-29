@@ -285,6 +285,7 @@ function readInner() {
     formatEmp();
     formatImage();
     formatLink();
+    formatRefLink();
     formatAltLink();
 }
 
@@ -407,8 +408,6 @@ function formatLink() {
         counter++;
 
         if (titleFlag[counter] == true) {
-            console.log(titleAttr[counter]);
-            console.log(link[counter]);
             replacement[counter] = '<a href="' + link[counter] + '\" title=\"' + titleAttr[counter] + '">' + linkName[counter] + '</a>';
         } else {
             replacement[counter] = '<a href="' + link[counter] + '">' + linkName[counter] + '</a>';
@@ -418,6 +417,96 @@ function formatLink() {
     });
 
     DISP_PLACE.innerHTML = result;
+}
+
+function formatRefLink() {
+
+    let counter = -1;
+
+    const REGEX = /\[+.{1,}?\]+?\[+.{1,}?\]/gi;
+    const TEXT = DISP_PLACE.innerHTML;
+
+    matchText = new Array();
+    matchText = TEXT.match(REGEX);
+
+    if (matchText != null) {
+
+        let reference = new Array();
+        let linkText = new Array();
+        let preRef;
+
+        matchText.forEach((element, index) => {
+            preRef = element.split('][');
+            reference[index] = preRef[1];
+            linkText[index] = preRef[0].replace('[', '');
+            reference[index] = '[' + reference[index] + ':';
+        })
+
+        let adRef = new Array();
+
+        reference.forEach((element, index) => {
+            adRef[index] = TEXT.indexOf(element)
+        });
+
+        let link = new Array();
+        let title = new Array();
+
+        adRef.forEach((element, index) => {
+
+            if (element != -1) {
+
+                for (let i = element; i < TEXT.length; i++) {
+
+                    if (link[index] == null) {
+                        link[index] = '';
+                        link[index] = TEXT[i];
+                    } else {
+                        if (link[index].includes('</p>')) {
+                            i = TEXT.length;
+                            link[index] = link[index].slice(0, link[index].length - 4);
+                        } else {
+                            link[index] += TEXT[i];
+                        }
+                    }
+                }
+                let arrLink = link[index].split(' ');
+
+                link[index] = arrLink[1];
+
+                if (arrLink.length > 2) {
+                    title[index] = '';
+                    for (let i = 2; i < arrLink.length; i++) {
+                        title[index] += arrLink[i] + ' ';
+                    }
+                }
+
+            }
+        })
+
+        let linkTag = new Array();
+
+        let result = TEXT.replace(REGEX, () => {
+
+            counter++;
+            if (link[counter] != null) {
+                if (title[counter] != null) {
+                    linkTag[counter] = '<a href="' + link[counter] + '" title="' + title[counter].replace('</p>', '') + '">' + linkText[counter] + '</a>';
+                } else {
+                    linkTag[counter] = '<a href="' + link[counter].replace('</p>', '') + '">' + linkText[counter] + '</a>';
+                }
+            } else {
+                linkTag[counter] = '<a href="#">' + linkText[counter] + '</a>';                
+            }
+
+            return linkTag[counter];
+        });
+
+        let REF_REG = /\[{1}.+?\]{1}\:{1}\s{1}.+/gi;
+        result = result.replace(REF_REG, '');
+
+        DISP_PLACE.innerHTML = result;
+    }
+
 }
 
 function formatAltLink() {
