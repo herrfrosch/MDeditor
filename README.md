@@ -1,12 +1,7 @@
 # emdeet
 
-#### In order to proper working jQuery 3.6 and Bootstrap 5 is required!  
-(I'm new to git and github, and I honestly have no idea that should I add bootstrap and jQuery to git)
+*Emdeet* is an online *markdown* editor which supports basic syntax of *markdown* format.
 
-So I'm learning JS and I decided to make a markdown editor based on JS.
+It's my first serious programming project, which I've been doing for few months. At current stage of development I'm debugging markdown parser, and working on more responsive site. Also I want to implement export function, in order to getting `.html` and `.md` files.
 
-Currently I'm working on basic functionality, and at this moment emdeet is supporting:
-- Headers tag - `<h1>...<h6>`
-- Unordered lists `<ul><li>`
-- Header tag in list
-- Paragraph tag `<p>`
+**In order to proper use, you need to add Bootstrap 5 and jQuery 3.6.1**. (I'll set *emdeet's* webstie soon.)
