@@ -90,3 +90,27 @@ body{
     background-color: #000;
     color: #fff;
 }
+
+.popup-bg{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: auto;
+    top: auto;
+}
+
+#popup-input{
+    display: none;
+}
+
+#upload-popup{
+    background-color: #fff;
+    width: 50vw;
+    height: 10vw;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40vh;
+    text-align: center;
+}
