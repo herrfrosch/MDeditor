@@ -18,10 +18,12 @@
         
     </head>
 
-    <body onload="main()">
+    <body onload="upload()">
 
         <div class="popup-bg" id="popup-input">
-            <div id="upload-popup"> Upload markdown file <br/>
+            <div id="upload-popup"> <span id="popup-title">Upload markdown file</span>
+                <span class="popup-closing">CLOSE</span>
+                <br/><br/>
                 <input type="file" id="upload-file" accept=".md">
             </div>
         </div>

@@ -19,13 +19,23 @@ const SPECIAL_CHAR = [
     "]"
 ];
 
-EDIT_PLACE.addEventListener('input', function () {
+// EDIT_PLACE.addEventListener('input', function () {
+
+//     DISP_PLACE.innerHTML = '';
+
+//     const RAW_TEXT = EDIT_PLACE.value;
+//     parser(RAW_TEXT);
+// });
+
+EDIT_PLACE.addEventListener('input', startParsing);
+
+function startParsing(){
 
     DISP_PLACE.innerHTML = '';
 
     const RAW_TEXT = EDIT_PLACE.value;
     parser(RAW_TEXT);
-});
+}
 
 function containOnly(toCheck, checker) {
     for (let i = 0; i < toCheck.length; i++) {
@@ -568,4 +578,45 @@ function formatImage() {
     })
 
     DISP_PLACE.innerHTML = result;
+}
+
+//save export functions
+
+function upload() {
+
+    //const SAVE_BTN = document.getElementById('save');
+    const UP_BTN = document.getElementById('upload');
+    const EX_BTN = document.getElementById('export');
+
+    const POPUP = document.getElementById('popup-input');
+    const FILE_INPUT = document.getElementById('upload-file');
+    
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+
+        UP_BTN.addEventListener("click", () => {
+
+            POPUP.style.display = "inline";
+
+            FILE_INPUT.addEventListener("change", () => {
+
+                const reader = new FileReader();
+
+                reader.readAsText(FILE_INPUT.files[0]);
+                reader.onload = () => {
+
+                    let text = reader.result;
+
+                    text = text.replaceAll('<', '&lt;');
+                    text = text.replaceAll('>', '&gt;');
+                    /*there is issue that it doesn't change automaticaly*/
+                    EDIT_PLACE.value = text;//add 'upload' button and change innerHTML after clicking
+                    POPUP.style.display = "none";//disappering after clicking 'upload' 
+                    startParsing();
+                }
+            });
+        });
+    } else {
+        alert("Your browser doesn't support FILE API, please update or change your browser");
+    }
+
 }
