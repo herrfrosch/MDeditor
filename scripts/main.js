@@ -591,6 +591,7 @@ function upload() {
     const POPUP = document.getElementById('popup-input');
     const FILE_INPUT = document.getElementById('upload-file');
     const CLOSE_BTN = document.getElementById('popup-close');
+    const CLOSE_BTN_MOBILE = document.getElementById('mobile-close');
     const UPL_BTN = document.getElementById('upload-btn');
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -620,6 +621,8 @@ function upload() {
         });
 
         CLOSE_BTN.addEventListener('click', () => {POPUP.style.display = "none";});
+        CLOSE_BTN_MOBILE.addEventListener('click', () => {POPUP.style.display = "none";});
+
 
         EX_BTN.addEventListener('click', () => {
             let downloadFile = new Blob([EDIT_PLACE.value], {type: 'text/MD'});
