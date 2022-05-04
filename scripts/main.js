@@ -598,7 +598,6 @@ function upload() {
         UP_BTN.addEventListener("click", () => {
 
             POPUP.style.display = "inline";
-
             FILE_INPUT.addEventListener("change", () => {
 
                 const reader = new FileReader();
@@ -621,7 +620,15 @@ function upload() {
         });
 
         CLOSE_BTN.addEventListener('click', () => {POPUP.style.display = "none";});
-        
+
+        EX_BTN.addEventListener('click', () => {
+            let downloadFile = new Blob([EDIT_PLACE.value], {type: 'text/MD'});
+            let anchor = document.createElement('a');
+            anchor.download = 'file.md';
+            anchor.href = window.URL.createObjectURL(downloadFile);
+            anchor.click();
+        })
+
     } else {
         alert("Your browser doesn't support FILE API, please update or change your browser");
     }

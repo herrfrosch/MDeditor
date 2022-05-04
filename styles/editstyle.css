@@ -100,7 +100,7 @@ body{
     top: auto;
 }
 
-#popup-title{
+.popup-title{
     font-size: 2rem;
     margin-left: 50px;
 }
@@ -142,7 +142,3 @@ body{
     background-color: #b1f6cb;
     border-radius: 10px;
 }
-
-/* #upload-btn:hover{
-    cursor: not-allowed;
-} */
