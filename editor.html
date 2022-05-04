@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lnag="en-US">
-
+<html lang="en">
     <head>
-
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
@@ -22,9 +20,11 @@
 
         <div class="popup-bg" id="popup-input">
             <div id="upload-popup"> <span id="popup-title">Upload markdown file</span>
-                <span class="popup-closing">CLOSE</span>
+                <span class="popup-closing" id="popup-close">CANCEL</span>
                 <br/><br/>
                 <input type="file" id="upload-file" accept=".md">
+                <br/>
+                <button id="upload-btn" disabled>Upload</button>
             </div>
         </div>
 

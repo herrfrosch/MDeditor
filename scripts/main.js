@@ -587,10 +587,12 @@ function upload() {
     //const SAVE_BTN = document.getElementById('save');
     const UP_BTN = document.getElementById('upload');
     const EX_BTN = document.getElementById('export');
-
+    
     const POPUP = document.getElementById('popup-input');
     const FILE_INPUT = document.getElementById('upload-file');
-    
+    const CLOSE_BTN = document.getElementById('popup-close');
+    const UPL_BTN = document.getElementById('upload-btn');
+
     if (window.File && window.FileReader && window.FileList && window.Blob) {
 
         UP_BTN.addEventListener("click", () => {
@@ -606,17 +608,21 @@ function upload() {
 
                     let text = reader.result;
 
-                    text = text.replaceAll('<', '&lt;');
-                    text = text.replaceAll('>', '&gt;');
-                    /*there is issue that it doesn't change automaticaly*/
-                    EDIT_PLACE.value = text;//add 'upload' button and change innerHTML after clicking
-                    POPUP.style.display = "none";//disappering after clicking 'upload' 
-                    startParsing();
+                    UPL_BTN.removeAttribute("disabled");
+                    UPL_BTN.addEventListener("click", () => {
+
+                        EDIT_PLACE.value = text;
+                        POPUP.style.display = "none";
+
+                        startParsing(); //possibility of html injection
+                    });
                 }
             });
         });
+
+        CLOSE_BTN.addEventListener('click', () => {POPUP.style.display = "none";});
+        
     } else {
         alert("Your browser doesn't support FILE API, please update or change your browser");
     }
-
 }
