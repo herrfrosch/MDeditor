@@ -91,6 +91,12 @@ body{
     color: #fff;
 }
 
+.bttn-disabled:hover{
+    background-color: rgba(130, 130, 130, 0);
+    color:rgba(130, 130, 130, 0.5);
+    cursor: not-allowed;
+}
+
 .popup-bg{
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
