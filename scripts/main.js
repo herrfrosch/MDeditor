@@ -332,6 +332,7 @@ function formatEmp() {
     }
 
     let result = TEXT.replace(REGEX, () => {
+        
         counter++;
 
         if (codeFlag[counter] == true) {
@@ -339,11 +340,11 @@ function formatEmp() {
             endTag = '</code>';
         } else {
 
-            let charNum = (replacementText[counter].charAt(0) == SPECIAL_CHAR[7]) ? 7 : 8;
+            //let charNum = (replacementText[counter].charAt(0) == SPECIAL_CHAR[7]) ? 7 : 8;
 
             for (let i = 0; i < 3; i++) {
 
-                if (replacementText[counter].charAt(i) != SPECIAL_CHAR[charNum]) {
+                if (replacementText[counter].charAt(i) != SPECIAL_CHAR[7] && replacementText[counter].charAt(i) != SPECIAL_CHAR[8]) {
 
                     switch (i) {
 
