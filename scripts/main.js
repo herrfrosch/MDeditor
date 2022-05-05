@@ -29,7 +29,7 @@ const SPECIAL_CHAR = [
 
 EDIT_PLACE.addEventListener('input', startParsing);
 
-function startParsing(){
+function startParsing() {
 
     DISP_PLACE.innerHTML = '';
 
@@ -505,7 +505,7 @@ function formatRefLink() {
                     linkTag[counter] = '<a href="' + link[counter].replace('</p>', '') + '">' + linkText[counter] + '</a>';
                 }
             } else {
-                linkTag[counter] = '<a href="#">' + linkText[counter] + '</a>';                
+                linkTag[counter] = '<a href="#">' + linkText[counter] + '</a>';
             }
 
             return linkTag[counter];
@@ -587,7 +587,7 @@ function upload() {
     //const SAVE_BTN = document.getElementById('save');
     const UP_BTN = document.getElementById('upload');
     const EX_BTN = document.getElementById('export');
-    
+
     const POPUP = document.getElementById('popup-input');
     const FILE_INPUT = document.getElementById('upload-file');
     const CLOSE_BTN = document.getElementById('popup-close');
@@ -620,18 +620,20 @@ function upload() {
             });
         });
 
-        CLOSE_BTN.addEventListener('click', () => {POPUP.style.display = "none";});
-        CLOSE_BTN_MOBILE.addEventListener('click', () => {POPUP.style.display = "none";});
-
+        CLOSE_BTN.addEventListener('click', () => { POPUP.style.display = "none"; });
+        CLOSE_BTN_MOBILE.addEventListener('click', () => { POPUP.style.display = "none"; });
 
         EX_BTN.addEventListener('click', () => {
-            let downloadFile = new Blob([EDIT_PLACE.value], {type: 'text/MD'});
-            let anchor = document.createElement('a');
-            anchor.download = 'file.md';
-            anchor.href = window.URL.createObjectURL(downloadFile);
-            anchor.click();
-        })
-
+            if (EDIT_PLACE.value != "") {
+                let downloadFile = new Blob([EDIT_PLACE.value], { type: 'text/MD' });
+                let anchor = document.createElement('a');
+                anchor.download = EDIT_PLACE.value.split(' ')[0] + '.md';
+                anchor.href = window.URL.createObjectURL(downloadFile);
+                anchor.click();
+            } else {
+                alert('File is empty');
+            }
+        });
     } else {
         alert("Your browser doesn't support FILE API, please update or change your browser");
     }
