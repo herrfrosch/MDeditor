@@ -19,14 +19,6 @@ const SPECIAL_CHAR = [
     "]"
 ];
 
-// EDIT_PLACE.addEventListener('input', function () {
-
-//     DISP_PLACE.innerHTML = '';
-
-//     const RAW_TEXT = EDIT_PLACE.value;
-//     parser(RAW_TEXT);
-// });
-
 EDIT_PLACE.addEventListener('input', startParsing);
 
 function startParsing() {
@@ -165,9 +157,9 @@ function readToken(textarr) {
 
 function addHeading(headerText) {
 
-    for (let a = 0; a < 7; a++) {
+    for (let a = 0; a < 8; a++) {
 
-        if (headerText.charAt(a) != SPECIAL_CHAR[0]) {
+        if (headerText.charAt(a) != SPECIAL_CHAR[0] && a < 7) {
 
             const headerTag = 'h' + a;
 
@@ -175,7 +167,26 @@ function addHeading(headerText) {
             let header = document.createElement(headerTag);
 
             header.innerText = headerText;
-            a = 7;
+            a = 8;
+
+            return header;
+
+        } else if (a >= 7) {
+
+            a = 6;
+            const headerTag = 'h' + a;
+
+            headerText = headerText.split(' ').slice(1,headerText.length);
+            let hdTxt = "";
+            
+            headerText.forEach((element) => {
+                hdTxt += element;
+                hdTxt += " ";
+            });
+
+            let header = document.createElement(headerTag);
+            header.innerText = hdTxt;
+            a = 8;
 
             return header;
         }
