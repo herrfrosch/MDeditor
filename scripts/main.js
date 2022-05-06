@@ -2,21 +2,22 @@ const EDIT_PLACE = document.getElementById('work-place');
 const DISP_PLACE = document.getElementById('display-area');
 
 const SPECIAL_CHAR = [
-    "#",
-    "- ",
-    "+ ",
-    "=",
-    "-",
-    ">",
-    "  ",
-    "*",
-    "_",
-    ".",
-    "\\",
-    "!",
-    "`",
-    "[",
-    "]"
+    "#",//0
+    "- ",//1
+    "+ ",//2
+    "=",//3
+    "-",//4
+    ">",//5
+    "  ",//6
+    "*",//7
+    "_",//8
+    ".",//9
+    "\\",//10
+    "!",//11
+    "`",//12
+    "[",//13
+    "]",//14
+    "* "//15
 ];
 
 EDIT_PLACE.addEventListener('input', startParsing);
@@ -66,13 +67,13 @@ function readToken(textarr) {
             earlierChar = parseInt(earlierChar);
         }
 
-        for (let a = 0; a < 6; a++) {
+        for (let j = 0; j < 16; j++) {
 
-            if (textarr[i].startsWith(SPECIAL_CHAR[a])) {
+            if (textarr[i].startsWith(SPECIAL_CHAR[j])) {
 
                 flag = true;
 
-                switch (a) {
+                switch (j) {
 
                     case 0:
                         if (i == 0) {
@@ -91,7 +92,8 @@ function readToken(textarr) {
                         break;
                     case 1:
                     case 2:
-                        if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]))) {
+                    case 15:
+                        if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]) || textarr[i - 1].startsWith(SPECIAL_CHAR[15]))) {
                             createElement(textarr, i, listCounter);
                         } else {
                             listCounter++;
@@ -339,26 +341,21 @@ function formatEmp() {
             tag = '<code>';
             endTag = '</code>';
         } else {
-
-            //let charNum = (replacementText[counter].charAt(0) == SPECIAL_CHAR[7]) ? 7 : 8;
-
+            
             for (let i = 0; i < 3; i++) {
-
+                
                 if (replacementText[counter].charAt(i) != SPECIAL_CHAR[7] && replacementText[counter].charAt(i) != SPECIAL_CHAR[8]) {
-
+                    
                     switch (i) {
-
                         case 0:
                             tag = '<em>';
                             endTag = '</em>';
                             break;
-
                         case 1:
                             tag = '<strong>';
                             endTag = '</strong>';
                             replacementText[counter] = replacementText[counter].slice(1, replacementText[counter].length - 1);
                             break;
-
                         case 2:
                             tag = '<strong><em>';
                             endTag = '</strong></em>';
