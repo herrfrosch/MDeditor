@@ -2,34 +2,27 @@ const EDIT_PLACE = document.getElementById('work-place');
 const DISP_PLACE = document.getElementById('display-area');
 
 const SPECIAL_CHAR = [
-    "#",
-    "- ",
-    "+ ",
-    "=",
-    "-",
-    ">",
-    "  ",
-    "*",
-    "_",
-    ".",
-    "\\",
-    "!",
-    "`",
-    "[",
-    "]"
+    "#",//0
+    "- ",//1
+    "+ ",//2
+    "=",//3
+    "-",//4
+    ">",//5
+    "  ",//6
+    "*",//7
+    "_",//8
+    ".",//9
+    "\\",//10
+    "!",//11
+    "`",//12
+    "[",//13
+    "]",//14
+    "* "//15
 ];
-
-// EDIT_PLACE.addEventListener('input', function () {
-
-//     DISP_PLACE.innerHTML = '';
-
-//     const RAW_TEXT = EDIT_PLACE.value;
-//     parser(RAW_TEXT);
-// });
 
 EDIT_PLACE.addEventListener('input', startParsing);
 
-function startParsing(){
+function startParsing() {
 
     DISP_PLACE.innerHTML = '';
 
@@ -74,13 +67,13 @@ function readToken(textarr) {
             earlierChar = parseInt(earlierChar);
         }
 
-        for (let a = 0; a < 6; a++) {
+        for (let j = 0; j < 16; j++) {
 
-            if (textarr[i].startsWith(SPECIAL_CHAR[a])) {
+            if (textarr[i].startsWith(SPECIAL_CHAR[j])) {
 
                 flag = true;
 
-                switch (a) {
+                switch (j) {
 
                     case 0:
                         if (i == 0) {
@@ -99,7 +92,8 @@ function readToken(textarr) {
                         break;
                     case 1:
                     case 2:
-                        if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]))) {
+                    case 15:
+                        if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]) || textarr[i - 1].startsWith(SPECIAL_CHAR[15]))) {
                             createElement(textarr, i, listCounter);
                         } else {
                             listCounter++;
@@ -165,9 +159,9 @@ function readToken(textarr) {
 
 function addHeading(headerText) {
 
-    for (let a = 0; a < 7; a++) {
+    for (let a = 0; a < 8; a++) {
 
-        if (headerText.charAt(a) != SPECIAL_CHAR[0]) {
+        if (headerText.charAt(a) != SPECIAL_CHAR[0] && a < 7) {
 
             const headerTag = 'h' + a;
 
@@ -175,7 +169,26 @@ function addHeading(headerText) {
             let header = document.createElement(headerTag);
 
             header.innerText = headerText;
-            a = 7;
+            a = 8;
+
+            return header;
+
+        } else if (a >= 7) {
+
+            a = 6;
+            const headerTag = 'h' + a;
+
+            headerText = headerText.split(' ').slice(1, headerText.length);
+            let hdTxt = "";
+
+            headerText.forEach((element) => {
+                hdTxt += element;
+                hdTxt += " ";
+            });
+
+            let header = document.createElement(headerTag);
+            header.innerText = hdTxt;
+            a = 8;
 
             return header;
         }
@@ -302,51 +315,60 @@ function readInner() {
 function formatEmp() {
 
     let counter = -1;
+    let altCounter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
     const REGEX = /[\*|\_|\`]+.{1,}?[\*|\_|\`]+/gi;
-
+    const ALT_REGEX = /\`{1}\`+.{1,}?\`{1}\`/gi;
+    
     let matchText = new Array();
     let replacementText = new Array();
     let codeFlag = new Array();
+    let doubleCode = new Array();
+    let doubleText = new Array();
+    
+    doubleCode = TEXT.match(ALT_REGEX);
+    if (doubleCode != undefined) {
+        doubleCode.forEach((element, index) => {
+            doubleText[index] = element.slice(2, element.length - 2);
+        });
+    }
 
-    matchText = TEXT.match(REGEX);
-
+    let partialResult = TEXT.replace(ALT_REGEX, () => {
+        altCounter++;
+        doubleText[altCounter] = "<code>" + doubleText[altCounter] + "</code>";
+        return doubleText[altCounter].replaceAll('`','&grave;');
+    });
+    
+    matchText = partialResult.match(REGEX);
     if (matchText != undefined) {
-
         matchText.forEach((element, index) => {
             codeFlag[index] = (element.charAt(0) == SPECIAL_CHAR[12]) ? true : false;
             replacementText[index] = element.slice(1, element.length - 1);
         });
     }
+    
+    let result = partialResult.replace(REGEX, () => {
 
-    let result = TEXT.replace(REGEX, () => {
+        let tag, endTag;
         counter++;
 
         if (codeFlag[counter] == true) {
             tag = '<code>';
             endTag = '</code>';
         } else {
-
-            let charNum = (replacementText[counter].charAt(0) == SPECIAL_CHAR[7]) ? 7 : 8;
-
             for (let i = 0; i < 3; i++) {
-
-                if (replacementText[counter].charAt(i) != SPECIAL_CHAR[charNum]) {
-
+                if (replacementText[counter].charAt(i) != SPECIAL_CHAR[7] && replacementText[counter].charAt(i) != SPECIAL_CHAR[8]) {
                     switch (i) {
-
                         case 0:
                             tag = '<em>';
                             endTag = '</em>';
                             break;
-
                         case 1:
                             tag = '<strong>';
                             endTag = '</strong>';
                             replacementText[counter] = replacementText[counter].slice(1, replacementText[counter].length - 1);
                             break;
-
                         case 2:
                             tag = '<strong><em>';
                             endTag = '</strong></em>';
@@ -361,7 +383,7 @@ function formatEmp() {
         replacementText[counter] = tag + replacementText[counter] + endTag;
         return replacementText[counter];
     });
-
+    
     DISP_PLACE.innerHTML = result;
 }
 
@@ -505,7 +527,7 @@ function formatRefLink() {
                     linkTag[counter] = '<a href="' + link[counter].replace('</p>', '') + '">' + linkText[counter] + '</a>';
                 }
             } else {
-                linkTag[counter] = '<a href="#">' + linkText[counter] + '</a>';                
+                linkTag[counter] = '<a href="#">' + linkText[counter] + '</a>';
             }
 
             return linkTag[counter];
@@ -587,7 +609,7 @@ function upload() {
     //const SAVE_BTN = document.getElementById('save');
     const UP_BTN = document.getElementById('upload');
     const EX_BTN = document.getElementById('export');
-    
+
     const POPUP = document.getElementById('popup-input');
     const FILE_INPUT = document.getElementById('upload-file');
     const CLOSE_BTN = document.getElementById('popup-close');
@@ -620,18 +642,20 @@ function upload() {
             });
         });
 
-        CLOSE_BTN.addEventListener('click', () => {POPUP.style.display = "none";});
-        CLOSE_BTN_MOBILE.addEventListener('click', () => {POPUP.style.display = "none";});
-
+        CLOSE_BTN.addEventListener('click', () => { POPUP.style.display = "none"; });
+        CLOSE_BTN_MOBILE.addEventListener('click', () => { POPUP.style.display = "none"; });
 
         EX_BTN.addEventListener('click', () => {
-            let downloadFile = new Blob([EDIT_PLACE.value], {type: 'text/MD'});
-            let anchor = document.createElement('a');
-            anchor.download = 'file.md';
-            anchor.href = window.URL.createObjectURL(downloadFile);
-            anchor.click();
-        })
-
+            if (EDIT_PLACE.value != "") {
+                let downloadFile = new Blob([EDIT_PLACE.value], { type: 'text/MD' });
+                let anchor = document.createElement('a');
+                anchor.download = EDIT_PLACE.value.split(' ')[0] + '.md';
+                anchor.href = window.URL.createObjectURL(downloadFile);
+                anchor.click();
+            } else {
+                alert('File is empty');
+            }
+        });
     } else {
         alert("Your browser doesn't support FILE API, please update or change your browser");
     }
