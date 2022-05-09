@@ -178,9 +178,9 @@ function addHeading(headerText) {
             a = 6;
             const headerTag = 'h' + a;
 
-            headerText = headerText.split(' ').slice(1,headerText.length);
+            headerText = headerText.split(' ').slice(1, headerText.length);
             let hdTxt = "";
-            
+
             headerText.forEach((element) => {
                 hdTxt += element;
                 hdTxt += " ";
@@ -315,37 +315,50 @@ function readInner() {
 function formatEmp() {
 
     let counter = -1;
+    let altCounter = -1;
 
     const TEXT = DISP_PLACE.innerHTML;
     const REGEX = /[\*|\_|\`]+.{1,}?[\*|\_|\`]+/gi;
-
+    const ALT_REGEX = /\`{1}\`+.{1,}?\`{1}\`/gi;
+    
     let matchText = new Array();
     let replacementText = new Array();
     let codeFlag = new Array();
+    let doubleCode = new Array();
+    let doubleText = new Array();
+    
+    doubleCode = TEXT.match(ALT_REGEX);
+    if (doubleCode != undefined) {
+        doubleCode.forEach((element, index) => {
+            doubleText[index] = element.slice(2, element.length - 2);
+        });
+    }
 
-    matchText = TEXT.match(REGEX);
-
+    let partialResult = TEXT.replace(ALT_REGEX, () => {
+        altCounter++;
+        doubleText[altCounter] = "<code>" + doubleText[altCounter] + "</code>";
+        return doubleText[altCounter].replaceAll('`','&grave;');
+    });
+    
+    matchText = partialResult.match(REGEX);
     if (matchText != undefined) {
-
         matchText.forEach((element, index) => {
             codeFlag[index] = (element.charAt(0) == SPECIAL_CHAR[12]) ? true : false;
             replacementText[index] = element.slice(1, element.length - 1);
         });
     }
+    
+    let result = partialResult.replace(REGEX, () => {
 
-    let result = TEXT.replace(REGEX, () => {
-        
+        let tag, endTag;
         counter++;
 
         if (codeFlag[counter] == true) {
             tag = '<code>';
             endTag = '</code>';
         } else {
-            
             for (let i = 0; i < 3; i++) {
-                
                 if (replacementText[counter].charAt(i) != SPECIAL_CHAR[7] && replacementText[counter].charAt(i) != SPECIAL_CHAR[8]) {
-                    
                     switch (i) {
                         case 0:
                             tag = '<em>';
@@ -370,7 +383,7 @@ function formatEmp() {
         replacementText[counter] = tag + replacementText[counter] + endTag;
         return replacementText[counter];
     });
-
+    
     DISP_PLACE.innerHTML = result;
 }
 
