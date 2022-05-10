@@ -8,16 +8,16 @@ const SPECIAL_CHAR = [
     "=",//3
     "-",//4
     ">",//5
-    "  ",//6
-    "*",//7
-    "_",//8
-    ".",//9
-    "\\",//10
-    "!",//11
-    "`",//12
-    "[",//13
-    "]",//14
-    "* "//15
+    "* ",//6
+    "  ",//7
+    "*",//8
+    "_",//9
+    ".",//10
+    "\\",//11
+    "!",//12
+    "`",//13
+    "[",//14
+    "]",//15
 ];
 
 EDIT_PLACE.addEventListener('input', startParsing);
@@ -67,7 +67,7 @@ function readToken(textarr) {
             earlierChar = parseInt(earlierChar);
         }
 
-        for (let j = 0; j < 16; j++) {
+        for (let j = 0; j < 7; j++) {
 
             if (textarr[i].startsWith(SPECIAL_CHAR[j])) {
 
@@ -93,7 +93,7 @@ function readToken(textarr) {
                     case 1:
                     case 2:
                     case 15:
-                        if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]) || textarr[i - 1].startsWith(SPECIAL_CHAR[15]))) {
+                        if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]) || textarr[i - 1].startsWith(SPECIAL_CHAR[6]))) {
                             createElement(textarr, i, listCounter);
                         } else {
                             listCounter++;
@@ -134,7 +134,7 @@ function readToken(textarr) {
             alternateHeading(textarr[i - 1], 2);
         }
 
-        if (i > 0 && (containOnly(textarr[i], SPECIAL_CHAR[7]) || containOnly(textarr[i], SPECIAL_CHAR[8]) || containOnly(textarr[i], SPECIAL_CHAR[4])) && textarr[i] !== "" && textarr[i - 1] === "") {
+        if (i > 0 && (containOnly(textarr[i], SPECIAL_CHAR[8]) || containOnly(textarr[i], SPECIAL_CHAR[9]) || containOnly(textarr[i], SPECIAL_CHAR[4])) && textarr[i] !== "" && textarr[i - 1] === "") {
 
             flag = true;
             addHorizonLine();
@@ -142,7 +142,7 @@ function readToken(textarr) {
 
         if (flag == false) {
 
-            if (i > 0 && textarr[i - 1].endsWith(SPECIAL_CHAR[6])) {
+            if (i > 0 && textarr[i - 1].endsWith(SPECIAL_CHAR[7])) {
 
                 const PERVIOUS_PAR = DISP_PLACE.lastChild.innerText;
                 addBrParagraph(textarr[i], PERVIOUS_PAR);
@@ -343,7 +343,7 @@ function formatEmp() {
     matchText = partialResult.match(REGEX);
     if (matchText != undefined) {
         matchText.forEach((element, index) => {
-            codeFlag[index] = (element.charAt(0) == SPECIAL_CHAR[12]) ? true : false;
+            codeFlag[index] = (element.charAt(0) == SPECIAL_CHAR[13]) ? true : false;
             replacementText[index] = element.slice(1, element.length - 1);
         });
     }
@@ -358,7 +358,7 @@ function formatEmp() {
             endTag = '</code>';
         } else {
             for (let i = 0; i < 3; i++) {
-                if (replacementText[counter].charAt(i) != SPECIAL_CHAR[7] && replacementText[counter].charAt(i) != SPECIAL_CHAR[8]) {
+                if (replacementText[counter].charAt(i) != SPECIAL_CHAR[8] && replacementText[counter].charAt(i) != SPECIAL_CHAR[9]) {
                     switch (i) {
                         case 0:
                             tag = '<em>';
