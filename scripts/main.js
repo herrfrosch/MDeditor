@@ -272,7 +272,7 @@ function addParagraph(text) {
 function addQuote(quote, blockNum) {
 
     quote = quote.slice(1, quote.length);
-    let headerQuote, inBlock, fTag;
+    let headerQuote, inBlock;
 
     for (let i = 0; i < 7; i++) {
         if (quote.charAt(1) == SPECIAL_CHAR[i] || quote.charAt(0) == SPECIAL_CHAR[i]) {
@@ -284,19 +284,12 @@ function addQuote(quote, blockNum) {
                     headerQuote = addHeading(quote);
                     break;
                 case 5:
-                    const TAG = 'bq2-' + blockNum;
+                    const TAG = blockNum + '-bq2';
 
-                    if (document.querySelector(TAG) == undefined) {
-
-                        inBlock = document.createElement("blockquote");
-                        inBlock.classList.add("bquote");
-                        inBlock.setAttribute("id", TAG);
-                        inBlock.innerText = quote.slice(1, quote.length);
-
-                    } else {
-
-                        fTag = document.querySelector(TAG);
-                    }
+                    inBlock = document.createElement("blockquote");
+                    inBlock.classList.add("bquote");
+                    inBlock.setAttribute("id", TAG);
+                    inBlock.innerText = quote.slice(1, quote.length);
 
                     break;
                 //there are some troubles with list support i'll do it later
@@ -308,10 +301,8 @@ function addQuote(quote, blockNum) {
 
     if (headerQuote != undefined) {
         quoteLine.appendChild(headerQuote);
-    } else if (inBlock != undefined) {
+    } else if (inBlock != undefined){
         quoteLine.appendChild(inBlock);
-    } else if (fTag != undefined){
-        fTag.appendChild(quoteLine);
     } else {
         quoteLine.innerText = quote;
     }
