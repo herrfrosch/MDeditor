@@ -92,7 +92,7 @@ function readToken(textarr) {
                         break;
                     case 1:
                     case 2:
-                    case 15:
+                    case 6:
                         if (i > 0 && (textarr[i - 1].startsWith(SPECIAL_CHAR[1]) || textarr[i - 1].startsWith(SPECIAL_CHAR[2]) || textarr[i - 1].startsWith(SPECIAL_CHAR[6]))) {
                             createElement(textarr, i, listCounter);
                         } else {
@@ -272,9 +272,49 @@ function addParagraph(text) {
 function addQuote(quote, blockNum) {
 
     quote = quote.slice(1, quote.length);
+    let headerQuote, inBlock, fTag;
+
+    for (let i = 0; i < 7; i++) {
+        if (quote.charAt(1) == SPECIAL_CHAR[i] || quote.charAt(0) == SPECIAL_CHAR[i]) {
+            switch (i) {
+                case 0:
+                    if (quote.charAt(1) == SPECIAL_CHAR[0] && quote.charAt(0) != SPECIAL_CHAR[0]) {
+                        quote = quote.slice(1, quote.length);
+                    }
+                    headerQuote = addHeading(quote);
+                    break;
+                case 5:
+                    const TAG = 'bq2-' + blockNum;
+
+                    if (document.querySelector(TAG) == undefined) {
+
+                        inBlock = document.createElement("blockquote");
+                        inBlock.classList.add("bquote");
+                        inBlock.setAttribute("id", TAG);
+                        inBlock.innerText = quote.slice(1, quote.length);
+
+                    } else {
+
+                        fTag = document.querySelector(TAG);
+                    }
+
+                    break;
+                //there are some troubles with list support i'll do it later
+            }
+        }
+    }
 
     let quoteLine = document.createElement("p");
-    quoteLine.innerText = quote;
+
+    if (headerQuote != undefined) {
+        quoteLine.appendChild(headerQuote);
+    } else if (inBlock != undefined) {
+        quoteLine.appendChild(inBlock);
+    } else if (fTag != undefined){
+        fTag.appendChild(quoteLine);
+    } else {
+        quoteLine.innerText = quote;
+    }
 
     const TAG = blockNum + '-bq';
     const BLOCK = document.getElementById(TAG);
@@ -320,13 +360,13 @@ function formatEmp() {
     const TEXT = DISP_PLACE.innerHTML;
     const REGEX = /[\*|\_|\`]+.{1,}?[\*|\_|\`]+/gi;
     const ALT_REGEX = /\`{1}\`+.{1,}?\`{1}\`/gi;
-    
+
     let matchText = new Array();
     let replacementText = new Array();
     let codeFlag = new Array();
     let doubleCode = new Array();
     let doubleText = new Array();
-    
+
     doubleCode = TEXT.match(ALT_REGEX);
     if (doubleCode != undefined) {
         doubleCode.forEach((element, index) => {
@@ -337,9 +377,9 @@ function formatEmp() {
     let partialResult = TEXT.replace(ALT_REGEX, () => {
         altCounter++;
         doubleText[altCounter] = "<code>" + doubleText[altCounter] + "</code>";
-        return doubleText[altCounter].replaceAll('`','&grave;');
+        return doubleText[altCounter].replaceAll('`', '&grave;');
     });
-    
+
     matchText = partialResult.match(REGEX);
     if (matchText != undefined) {
         matchText.forEach((element, index) => {
@@ -347,7 +387,7 @@ function formatEmp() {
             replacementText[index] = element.slice(1, element.length - 1);
         });
     }
-    
+
     let result = partialResult.replace(REGEX, () => {
 
         let tag, endTag;
@@ -383,7 +423,7 @@ function formatEmp() {
         replacementText[counter] = tag + replacementText[counter] + endTag;
         return replacementText[counter];
     });
-    
+
     DISP_PLACE.innerHTML = result;
 }
 
