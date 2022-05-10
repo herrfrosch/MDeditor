@@ -34,16 +34,14 @@ a:visited{
 
 .navbar-brand{
     font-size: 25px;
-    transition: all .5s ease;
+    transition: all .3s ease-in-out;
 }
 
 .navbar-brand:hover{
     text-decoration: none;
-    transform: scale(1.2);
 }
 
 .bg-MDe{
-  /*  background-color: #bee5fc;*/
   background-color: rgba(36, 36, 41, 0);
 }
 
