@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Library | emdeet</title>
+
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link href="styles/libstyle.css" rel="stylesheet" type="text/css" />
+
+    <script src="scripts/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-MDe">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">emdeet</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="index.html" aria="Current page">Home</a>
+                        <a class="nav-link" href="editor.html">Editor</a>
+                        <a class="nav-link active" href="library.html">Library</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container-fluid">
+
+        <section class="row rows">
+            <aside class="col-md-3" id="document-list">
+                <div class="list-title">Notes list</div>
+                <div class="document-item">
+                    <strong>First note</strong><br/>
+                    Lorem Ipsum dolor sit amet, consectetur adip spans anet, sed do eiusmod tempor incidid...
+                </div>
+                <div class="document-item">
+                    <strong>Second note</strong><br/>
+                    Lorem Ipsum dolor sit amet, consectetur adip spans anet, sed do eiusmod tempor incidid...
+                </div>
+            </aside>
+            <article class="col-md-9" id="document-preview"></article>
+        </section>
+
+    </main>
+
+
+
+</body>
+
+</html>
