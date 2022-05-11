@@ -335,7 +335,6 @@ function addHorizonLine() {
 //parser inner text function (italics, bold, code, images, links)
 
 function readInner() {
-
     formatEmp();
     formatImage();
     formatLink();
@@ -711,6 +710,7 @@ function saveDocument() {
 
     SAVE_BTN.addEventListener('click', () => {
         localStorage.setItem(`note${noteNum}`, EDIT_PLACE.value);
+        animateSave();
     });
 }
 
@@ -718,4 +718,40 @@ function loadDocument(noteNum) {
     let documentString = localStorage.getItem(`note${noteNum}`);
     EDIT_PLACE.value = documentString;
     startParsing();
+}
+
+function animateSave() {
+    const notification = document.createElement('div');
+        notification.setAttribute('class', 'mini-notification');
+        notification.innerText = 'File saved successfully';
+        document.body.appendChild(notification);
+
+        let transparency = 0.0;
+
+        const showAnimation = setInterval(() => {
+            transparency += 0.05;
+
+            notification.style.backgroundColor = `rgba(255, 255, 255, ${transparency})`;
+            notification.style.borderColor = `rgba(0, 0, 0, ${transparency})`;
+            notification.style.color = `rgba(0, 0, 0, ${transparency})`;
+
+            if (transparency >= 1.0){
+                clearInterval(showAnimation);
+            }
+        }, 50);
+
+        setTimeout(() => {
+            const closeAnimation = setInterval(() => {
+                transparency -= 0.05;
+
+                notification.style.backgroundColor = `rgba(255, 255, 255, ${transparency})`;
+                notification.style.borderColor = `rgba(0, 0, 0, ${transparency})`;
+                notification.style.color = `rgba(0, 0, 0, ${transparency})`;
+    
+                if (transparency <= 0.0){
+                    clearInterval(closeAnimation);
+                    document.body.removeChild(notification);
+                }
+            }, 50);
+        }, 5000);
 }
