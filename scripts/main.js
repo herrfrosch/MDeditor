@@ -710,6 +710,7 @@ function saveDocument() {
 
     SAVE_BTN.addEventListener('click', () => {
         localStorage.setItem(`note${noteNum}`, EDIT_PLACE.value);
+        localStorage.setItem(`document${noteNum}`, DISP_PLACE.innerHTML);
         animateSave();
     });
 }
