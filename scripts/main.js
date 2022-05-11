@@ -722,36 +722,48 @@ function loadDocument(noteNum) {
 
 function animateSave() {
     const notification = document.createElement('div');
-        notification.setAttribute('class', 'mini-notification');
-        notification.innerText = 'File saved successfully';
-        document.body.appendChild(notification);
+    notification.setAttribute('class', 'mini-notification');
+    notification.innerText = 'File saved successfully';
+    document.body.appendChild(notification);
 
-        let transparency = 0.0;
+    let transparency = 0.0;
+    let isClosed = false;
 
-        const showAnimation = setInterval(() => {
-            transparency += 0.05;
+    const showAnimation = setInterval(() => {
+        transparency += 0.2;
 
-            notification.style.backgroundColor = `rgba(255, 255, 255, ${transparency})`;
-            notification.style.borderColor = `rgba(0, 0, 0, ${transparency})`;
-            notification.style.color = `rgba(0, 0, 0, ${transparency})`;
+        notification.style.backgroundColor = `rgba(255, 255, 255, ${transparency})`;
+        notification.style.borderColor = `rgba(0, 0, 0, ${transparency})`;
+        notification.style.color = `rgba(0, 0, 0, ${transparency})`;
 
-            if (transparency >= 1.0){
-                clearInterval(showAnimation);
-            }
-        }, 50);
+        if (transparency >= 1.0) {
+            clearInterval(showAnimation);
+        }
+    }, 50);
 
-        setTimeout(() => {
-            const closeAnimation = setInterval(() => {
-                transparency -= 0.05;
+    notification.addEventListener('click', () => {
+        closeAnimation(transparency, notification);
+        isClosed = true;
+    });
 
-                notification.style.backgroundColor = `rgba(255, 255, 255, ${transparency})`;
-                notification.style.borderColor = `rgba(0, 0, 0, ${transparency})`;
-                notification.style.color = `rgba(0, 0, 0, ${transparency})`;
-    
-                if (transparency <= 0.0){
-                    clearInterval(closeAnimation);
-                    document.body.removeChild(notification);
-                }
-            }, 50);
-        }, 5000);
+    setTimeout(() => {
+        if (!isClosed){
+        closeAnimation(transparency, notification);
+        }
+    }, 5000);
+}
+
+function closeAnimation(transparency, notification) {
+    const closeAnimation = setInterval(() => {
+        transparency -= 0.2;
+
+        notification.style.backgroundColor = `rgba(255, 255, 255, ${transparency})`;
+        notification.style.borderColor = `rgba(0, 0, 0, ${transparency})`;
+        notification.style.color = `rgba(0, 0, 0, ${transparency})`;
+
+        if (transparency <= 0.0) {
+            clearInterval(closeAnimation);
+            document.body.removeChild(notification);
+        }
+    }, 50);
 }
