@@ -301,7 +301,7 @@ function addQuote(quote, blockNum) {
 
     if (headerQuote != undefined) {
         quoteLine.appendChild(headerQuote);
-    } else if (inBlock != undefined){
+    } else if (inBlock != undefined) {
         quoteLine.appendChild(inBlock);
     } else {
         quoteLine.innerText = quote;
@@ -637,7 +637,6 @@ function formatImage() {
 
 function upload() {
 
-    //const SAVE_BTN = document.getElementById('save');
     const UP_BTN = document.getElementById('upload');
     const EX_BTN = document.getElementById('export');
 
@@ -690,4 +689,33 @@ function upload() {
     } else {
         alert("Your browser doesn't support FILE API, please update or change your browser");
     }
+
+    saveDocument();
+}
+
+//saving in browser
+
+function saveDocument() {
+    const SAVE_BTN = document.getElementById('save');
+
+    let documentsNum = localStorage.length;
+    let noteNum = 0;
+
+    if (documentsNum > 0) {
+        noteNum = documentsNum - 1;
+        loadDocument(noteNum);
+    } else {
+        noteNum++;
+        localStorage.setItem(`note${noteNum}`, '');
+    }
+
+    SAVE_BTN.addEventListener('click', () => {
+        localStorage.setItem(`note${noteNum}`, EDIT_PLACE.value);
+    });
+}
+
+function loadDocument(noteNum) {
+    let documentString = localStorage.getItem(`note${noteNum}`);
+    EDIT_PLACE.value = documentString;
+    startParsing();
 }
