@@ -1,9 +1,10 @@
 window.onload = () => {
     const DOC_LIST = document.getElementById('document-list');
+    const PREVIEW_PLACE = document.getElementById('document-preview');
 
     let itemNum = localStorage.length / 3;
 
-    if ( itemNum > 0) {
+    if (itemNum > 0) {
         loadNotes(itemNum, DOC_LIST);
     } else {
         const EMPTY_LIST = document.createElement('div');
@@ -12,9 +13,14 @@ window.onload = () => {
         DOC_LIST.appendChild(EMPTY_LIST);
     }
 
-    DOC_LIST.addEventListener('click', () => {
-        console.log(itemNum, localStorage);
-    });
+    for (let i = 1; i <= itemNum; i++) {
+        const NOTE_NAME = document.getElementById(i);
+        NOTE_NAME.addEventListener('click', () => {
+            let doc = localStorage.getItem(`document${i}`);
+            PREVIEW_PLACE.innerHTML = doc;
+        });
+    }
+
 }
 
 function loadNotes(itemsNum, LIST) {
@@ -22,17 +28,16 @@ function loadNotes(itemsNum, LIST) {
     for (let i = 1; i <= itemsNum; i++) {
 
         let itemName = `note${i}`;
-        let titleName = `title${i}`;
-        
+
         let note = localStorage.getItem(itemName);
-        let title = localStorage.getItem(titleName);
+        let title = localStorage.getItem(`title${i}`);
 
         const LIST_ITEM = document.createElement('div');
         const TITLE = document.createElement('strong');
         const BREAK = document.createElement('br');
 
         TITLE.innerText = title;
-        
+
         LIST_ITEM.className = 'document-item';
         LIST_ITEM.appendChild(TITLE);
         LIST_ITEM.appendChild(BREAK);
