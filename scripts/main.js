@@ -696,12 +696,15 @@ function upload() {
 
 function saveDocument() {
     const SAVE_BTN = document.getElementById('save');
+    const TITLE_INPUT = document.getElementById('doc-title');
+    const NEW_BTN = document.getElementById('new-doc');
 
     let documentsNum = localStorage.length;
     let noteNum = 0;
 
     if (documentsNum > 0) {
-        noteNum = documentsNum - 1;
+        noteNum = documentsNum / 3;
+        noteNum = parseInt(noteNum, 10);
         loadDocument(noteNum);
     } else {
         noteNum++;
@@ -709,22 +712,48 @@ function saveDocument() {
     }
 
     SAVE_BTN.addEventListener('click', () => {
+
+        if (EDIT_PLACE.value != '' && TITLE_INPUT.value != '') {
+
         localStorage.setItem(`note${noteNum}`, EDIT_PLACE.value);
         localStorage.setItem(`document${noteNum}`, DISP_PLACE.innerHTML);
-        animateSave();
+        localStorage.setItem(`title${noteNum}`, TITLE_INPUT.value);
+        
+        animateNotification('File saved successfully');
+        } else if (EDIT_PLACE.value != '' && TITLE_INPUT.value == '') {
+            animateNotification("Enter a title");
+            TITLE_INPUT.focus();
+        } else {
+            animateNotification("There's nothing to save");
+        }
+    });
+
+    NEW_BTN.addEventListener('click', () => {
+        noteNum++;
+        localStorage.setItem(`note${noteNum}`, '');
+
+        EDIT_PLACE.value = '';
+        TITLE_INPUT.value = '';
+        
+        startParsing();
+        animateNotification('Created new note');
     });
 }
 
 function loadDocument(noteNum) {
     let documentString = localStorage.getItem(`note${noteNum}`);
+    let titleString = localStorage.getItem(`title${noteNum}`);
     EDIT_PLACE.value = documentString;
+    document.getElementById('doc-title').value = titleString;
     startParsing();
 }
 
-function animateSave() {
+// animations
+
+function animateNotification(message) {
     const notification = document.createElement('div');
     notification.setAttribute('class', 'mini-notification');
-    notification.innerText = 'File saved successfully';
+    notification.innerText = message;
     document.body.appendChild(notification);
 
     let transparency = 0.0;

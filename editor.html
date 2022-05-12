@@ -1,103 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <title>Editor | emdeet</title>
 
-        <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-        <link href="styles/editstyle.css" rel="stylesheet" type="text/css"/>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <script src="scripts/jquery-3.6.0.min.js"></script>
-        
-    </head>
+    <title>Editor | emdeet</title>
 
-    <body onload="upload();">
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link href="styles/editstyle.css" rel="stylesheet" type="text/css" />
 
-        <div class="popup-bg" id="popup-input">
-            <div id="upload-popup"> <span class="popup-title">Upload markdown file</span>
-                <span class="popup-closing" id="popup-close">CANCEL</span>
-                <br/><br/>
-                <input type="file" id="upload-file" accept=".md">
-                <br/>
-                <button id="upload-btn" disabled>Upload</button>
-                <br/><button id="mobile-close">Cancel</button>
-            </div>
+    <script src="scripts/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body onload="upload();">
+
+    <div class="popup-bg" id="popup-input">
+        <div id="upload-popup"> <span class="popup-title">Upload markdown file</span>
+            <span class="popup-closing" id="popup-close">CANCEL</span>
+            <br /><br />
+            <input type="file" id="upload-file" accept=".md">
+            <br />
+            <button id="upload-btn" disabled>Upload</button>
+            <br /><button id="mobile-close">Cancel</button>
         </div>
+    </div>
 
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-MDe">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="index.html">emdeet</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                  aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                      <a class="nav-link" href="index.html">Home</a>
-                      <a class="nav-link active" href="editor.html" aria="Current page">Editor</a>
-                      <a class="nav-link" href="library.html">Library</a>
-                    </div>
-                  </div>
-                </div>
-              </nav>
-        </header>
-
-        <main>
-
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-MDe">
             <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">emdeet</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link active" href="editor.html" aria="Current page">Editor</a>
+                        <a class="nav-link" href="library.html">Library</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-                <div class="row rows">
+    <main>
 
-                    <div class="col-12" style="padding: 0;">
+        <div class="container-fluid">
 
-                        <div class="row rows">
+            <div class="row rows">
 
-                            <div class="col-6">
+                <div class="col-12" style="padding: 0;">
 
-                                <section>
+                    <div class="row rows">
 
-                                    <div id="input-area">
-                                        
-                                        <textarea id="work-place" placeholder="Write text here..." autofocus></textarea>
+                        <div class="col-6">
 
-                                    </div>
+                            <section>
 
-                                </section>
+                                <div id="input-area">
 
-                            </div>
-                                
-                            <div class="col-6">
+                                    <textarea id="work-place" placeholder="Write text here..." autofocus></textarea>
 
-                                <section>
+                                </div>
 
-                                    <div id="display-area"></div>
+                            </section>
 
-                                </section>
+                        </div>
 
-                            </div>    
+                        <div class="col-6">
 
-                            <div class="col">
+                            <section>
 
-                                <section>
+                                <div id="display-area"></div>
 
-                                    <div id="up-download">
+                            </section>
 
-                                        <button class="bttn" id="save">Save</button>
-                                        <button class="bttn" id="upload">Upload file</button>
-                                        <button class="bttn" id="export">Download file</button>
+                        </div>
 
-                                    </div>
+                        <div class="col">
 
-                                </section>
+                            <section>
 
-                            </div>
-                            
+                                <div id="up-download">
+
+                                    <input type="text" class="bttn" id="doc-title" placeholder="Enter document title..." maxlength="12" size="14" />
+                                    <button class="bttn" id="new-doc">New document</button>
+                                    <button class="bttn" id="save">Save document</button>
+                                    <button class="bttn" id="upload">Upload file</button>
+                                    <button class="bttn" id="export">Download file</button>
+
+                                </div>
+
+                            </section>
+
                         </div>
 
                     </div>
@@ -106,10 +109,12 @@
 
             </div>
 
-        </main>
+        </div>
 
-        <script src="scripts/bootstrap.min.js"></script>
-        <script src="scripts/main.js"></script>
-        <script src="scripts/file_maintence.js"></script> 
+    </main>
 
-    </body>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/file_maintence.js"></script>
+
+</body>

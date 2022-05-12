@@ -181,6 +181,11 @@ body{
     cursor: pointer;
     color:rgb(255, 77, 77) !important;
 }
+
+#doc-title {
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+}
     
 @media only screen and (max-width: 1024px) {
     .popup-title{
