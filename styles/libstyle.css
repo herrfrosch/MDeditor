@@ -41,7 +41,9 @@ body {
 
 #document-preview {
     width: 70%;
+    height: 85vh;
     margin-bottom: 1vw;
+    padding: 1vw;
     text-align: left;
     background-color: #fff;
     border-radius: 20px;
