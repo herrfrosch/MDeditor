@@ -79,7 +79,7 @@ body{
 .bttn{
     font-size: 15px;
     margin-right: 1vw;
-    margin-top: 1vw;
+    margin-bottom: .5vw;
     padding: 5px;
     background-color: rgba(130, 130, 130, 0);
     border-style: none solid none solid;
@@ -87,6 +87,7 @@ body{
     border-color: #000;
     border-radius: 10px;
     transition: all .2s ease-in-out;
+    float: right;
 }
 
 .bttn:hover{
@@ -185,6 +186,15 @@ body{
 #doc-title {
     border-top: 2px solid;
     border-bottom: 2px solid;
+    float: left !important; 
+}
+
+#doc-title:hover {
+    border-color: #fff !important;
+}
+
+#doc-label {
+    font-size: .8em;
 }
     
 @media only screen and (max-width: 1024px) {
