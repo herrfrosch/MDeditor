@@ -1,6 +1,6 @@
 window.onload = () => {
     const DOC_LIST = document.getElementById('document-list');
-    const PREVIEW_PLACE = document.getElementById('document-preview');
+    const PREVIEW_PLACE = document.getElementById('document-view');
 
     let itemNum = localStorage.length / 3;
 
