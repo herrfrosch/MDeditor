@@ -706,21 +706,23 @@ function saveDocument() {
         noteNum = documentsNum / 3;
         noteNum = parseInt(noteNum, 10);
         loadDocument(noteNum);
-    } else {
-        noteNum++;
-        localStorage.setItem(`note${noteNum}`, '');
     }
 
     SAVE_BTN.addEventListener('click', () => {
 
         if (EDIT_PLACE.value != '' && TITLE_INPUT.value != '') {
 
-        localStorage.setItem(`note${noteNum}`, EDIT_PLACE.value);
-        localStorage.setItem(`document${noteNum}`, DISP_PLACE.innerHTML);
-        localStorage.setItem(`title${noteNum}`, TITLE_INPUT.value);
-        
-        animateNotification('File saved successfully');
+            noteNum++;
+
+            localStorage.setItem(`note${noteNum}`, EDIT_PLACE.value);
+            localStorage.setItem(`document${noteNum}`, DISP_PLACE.innerHTML);
+            localStorage.setItem(`title${noteNum}`, TITLE_INPUT.value);
+
+            animateNotification('File saved successfully');
         } else if (EDIT_PLACE.value != '' && TITLE_INPUT.value == '') {
+
+            noteNum++;
+
             animateNotification("Enter a title");
             TITLE_INPUT.focus();
         } else {
@@ -729,12 +731,8 @@ function saveDocument() {
     });
 
     NEW_BTN.addEventListener('click', () => {
-        noteNum++;
-        localStorage.setItem(`note${noteNum}`, '');
-
         EDIT_PLACE.value = '';
         TITLE_INPUT.value = '';
-        
         startParsing();
         animateNotification('Created new note');
     });
@@ -777,8 +775,8 @@ function animateNotification(message) {
     });
 
     setTimeout(() => {
-        if (!isClosed){
-        closeAnimation(transparency, notification);
+        if (!isClosed) {
+            closeAnimation(transparency, notification);
         }
     }, 5000);
 }
