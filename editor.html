@@ -55,55 +55,47 @@
 
             <div class="row rows">
 
-                <div class="col-12" style="padding: 0;">
+                <div class="col-12">
 
-                    <div class="row rows">
+                    <section>
 
-                        <div class="col-6">
+                        <div id="up-download">
 
-                            <section>
-
-                                <div id="input-area">
-
-                                    <textarea id="work-place" placeholder="Write text here..." autofocus></textarea>
-
-                                </div>
-
-                            </section>
+                            <label for="doc-title" id="doc-label">Note title</label><br />
+                            <input type="text" class="bttn" id="doc-title" name="doc-title"
+                                placeholder="Enter document title..." maxlength="18" size="20" />
+                            <button class="bttn" id="new-doc">New note</button>
+                            <button class="bttn" id="save">Save note</button>
+                            <button class="bttn" id="upload">Upload file</button>
+                            <button class="bttn" id="export">Download file</button>
 
                         </div>
 
-                        <div class="col-6">
+                    </section>
 
-                            <section>
+                </div>
 
-                                <div id="display-area"></div>
+                <div class="col-md-6">
 
-                            </section>
+                    <section>
 
-                        </div>
+                        <div id="input-area">
 
-                        <div class="col-12">
-
-                            <section>
-
-                                <div id="up-download">
-
-                                    <label for="doc-title" id="doc-label">Note title</label><br />
-                                    <input type="text" class="bttn" id="doc-title" name="doc-title"
-                                        placeholder="Enter document title..." maxlength="18" size="20" />
-                                    <button class="bttn" id="new-doc">New note</button>
-                                    <button class="bttn" id="save">Save note</button>
-                                    <button class="bttn" id="upload">Upload file</button>
-                                    <button class="bttn" id="export">Download file</button>
-
-                                </div>
-
-                            </section>
+                            <textarea id="work-place" placeholder="Write text here..." autofocus></textarea>
 
                         </div>
 
-                    </div>
+                    </section>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <section>
+
+                        <div id="display-area"></div>
+
+                    </section>
 
                 </div>
 
