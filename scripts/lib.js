@@ -48,12 +48,12 @@ window.onload = () => {
             }
 
             PREVIEW_PLACE.innerHTML = '<h1>Library</h1><h4>Click note to view</h4>';
-            animateNotification('Note deleted');
+            animateNotification('Note deleted', 'delete');
 
         } else if (itemNum > 0 && whichNote == undefined) {
-            animateNotification("Note isn't selected");
+            animateNotification("Note isn't selected", 'select');
         } else {
-            animateNotification("There isn't any saved notes");
+            animateNotification("There isn't any saved notes", 'saved');
         }
 
         for (let i = 1; i <= itemNum; i++) {
@@ -70,7 +70,7 @@ window.onload = () => {
         if (whichNote != undefined){
             openEditor(whichNote);
         } else {
-            animateNotification("Note isn't selected");
+            animateNotification("Note isn't selected", 'select');
         }
 
     });
@@ -139,37 +139,52 @@ function openEditor(noteNum) {
 
 //animations
 
-function animateNotification(message) {
-    const notification = document.createElement('div');
-    notification.setAttribute('class', 'mini-notification');
-    notification.innerText = message;
-    document.body.appendChild(notification);
+function animateNotification(message, tag) {
 
-    let transparency = 0.0;
-    let isClosed = false;
+    let isAnotherNotifi = document.querySelectorAll(`div.mini-notification`);
+    let isSameNotifi = null;
 
-    const showAnimation = setInterval(() => {
-        transparency += 0.2;
+    if (isAnotherNotifi) {
+        isSameNotifi = document.querySelector(`div.mini-notification#${tag}`);
+    }
 
-        notification.style.backgroundColor = `rgba(255, 255, 255, ${transparency})`;
-        notification.style.borderColor = `rgba(0, 0, 0, ${transparency})`;
-        notification.style.color = `rgba(0, 0, 0, ${transparency})`;
+    if (!isSameNotifi) {
+        const notification = document.createElement('div');
+        notification.setAttribute('class', 'mini-notification');
+        notification.setAttribute('id', tag);
+        notification.innerText = message;
+        document.body.appendChild(notification);
 
-        if (transparency >= 1.0) {
-            clearInterval(showAnimation);
+        if (isAnotherNotifi) {
+            notification.style.bottom = `${isAnotherNotifi.length * 3.5}vw`;
         }
-    }, 50);
 
-    notification.addEventListener('click', () => {
-        closeAnimation(transparency, notification);
-        isClosed = true;
-    });
+        let transparency = 0.0;
+        let isClosed = false;
 
-    setTimeout(() => {
-        if (!isClosed) {
+        const showAnimation = setInterval(() => {
+            transparency += 0.2;
+
+            notification.style.backgroundColor = `rgba(255, 255, 255, ${transparency})`;
+            notification.style.borderColor = `rgba(0, 0, 0, ${transparency})`;
+            notification.style.color = `rgba(0, 0, 0, ${transparency})`;
+
+            if (transparency >= 1.0) {
+                clearInterval(showAnimation);
+            }
+        }, 50);
+
+        notification.addEventListener('click', () => {
             closeAnimation(transparency, notification);
-        }
-    }, 5000);
+            isClosed = true;
+        });
+
+        setTimeout(() => {
+            if (!isClosed) {
+                closeAnimation(transparency, notification);
+            }
+        }, 5000);
+    }
 }
 
 function closeAnimation(transparency, notification) {
@@ -183,6 +198,18 @@ function closeAnimation(transparency, notification) {
         if (transparency <= 0.0) {
             clearInterval(closeAnimation);
             document.body.removeChild(notification);
+
+            let otherNotif = document.querySelectorAll('div.mini-notification');
+            if (otherNotif.length > 0) {
+            
+                let height = otherNotif.length * 3.5;
+            
+                for (let i = otherNotif.length - 1; i >= 0; i--) {
+                    
+                    height -= 3.5;
+                    otherNotif[i].style.bottom = `${ height }vw`;    
+                }
+            }
         }
     }, 50);
 }
