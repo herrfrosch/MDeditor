@@ -702,10 +702,17 @@ function saveDocument() {
     let documentsNum = localStorage.length;
     let noteNum = 0;
 
-    if (documentsNum > 0) {
+    let whichOpen = localStorage.getItem('open');
+
+    if (documentsNum > 0 && whichOpen == null) {
         noteNum = documentsNum / 3;
         noteNum = parseInt(noteNum, 10);
         loadDocument(noteNum);
+    } else if (documentsNum > 0 && whichOpen != null) {
+        localStorage.removeItem('open');
+        loadDocument(whichOpen);
+        noteNum = whichOpen - 1;
+        whichOpen = null;
     }
 
     SAVE_BTN.addEventListener('click', () => {

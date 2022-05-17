@@ -3,8 +3,10 @@ window.onload = () => {
     const DOC_LIST = document.getElementById('document-items');
     const PREVIEW_PLACE = document.getElementById('document-view');
     const DEL_BTN = document.getElementById('del-btn');
+    const OPEN_BTN = document.getElementById('open-btn');
 
     let itemNum = localStorage.length / 3;
+    let whichNote = undefined;
 
     DOC_LIST.innerHTML = '';
 
@@ -33,6 +35,7 @@ window.onload = () => {
             deleteNote(whichNote);
             itemNum--;
             DOC_LIST.innerHTML = '';
+            whichNote = undefined;
 
             if (itemNum > 0) {
                 loadNotes(itemNum, DOC_LIST);
@@ -48,9 +51,9 @@ window.onload = () => {
             animateNotification('Note deleted');
 
         } else if (itemNum > 0 && whichNote == undefined) {
-            animateNotification('No note selected');
+            animateNotification("Note isn't selected");
         } else {
-            animateNotification('There is no saved notes');
+            animateNotification("There isn't any saved notes");
         }
 
         for (let i = 1; i <= itemNum; i++) {
@@ -60,6 +63,16 @@ window.onload = () => {
                 PREVIEW_PLACE.innerHTML = localStorage.getItem(`document${i}`);
             });
         }
+    });
+
+    OPEN_BTN.addEventListener('click', () => {
+
+        if (whichNote != undefined){
+            openEditor(whichNote);
+        } else {
+            animateNotification("Note isn't selected");
+        }
+
     });
 }
 
@@ -117,6 +130,11 @@ function deleteNote(noteNum) {
             localStorage.removeItem(`${keysArr[j]}${i}`);
         }
     }
+}
+
+function openEditor(noteNum) {
+    localStorage.setItem('open',`${noteNum}`);
+    window.open("./editor.html", "_self");
 }
 
 //animations

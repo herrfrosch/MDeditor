@@ -39,6 +39,7 @@ body{
     border-width: 0px;
     padding: 1vw;
     resize: none;
+    outline: none;
     -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1); 
     -moz-box-shadow: 0px 10px 25px -7px rgb(228, 228, 245);
     box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
@@ -195,6 +196,7 @@ body{
 
 #doc-label {
     font-size: .8em;
+    outline: none;
 }
     
 @media only screen and (max-width: 1024px) {
