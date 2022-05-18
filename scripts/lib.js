@@ -21,10 +21,12 @@ window.onload = () => {
     }
 
     for (let i = 1; i <= itemNum; i++) {
+
         const NOTE_NAME = document.getElementById(i);
+
         NOTE_NAME.addEventListener('click', () => {
             whichNote = i;
-            PREVIEW_PLACE.innerHTML = localStorage.getItem(`document${i}`);
+            eventsForList(i, PREVIEW_PLACE, NOTE_NAME);
         });
     }
 
@@ -57,17 +59,19 @@ window.onload = () => {
         }
 
         for (let i = 1; i <= itemNum; i++) {
+
             const NOTE_NAME = document.getElementById(i);
+
             NOTE_NAME.addEventListener('click', () => {
                 whichNote = i;
-                PREVIEW_PLACE.innerHTML = localStorage.getItem(`document${i}`);
+                eventsForList(i, PREVIEW_PLACE, NOTE_NAME);
             });
         }
     });
 
     OPEN_BTN.addEventListener('click', () => {
 
-        if (whichNote != undefined){
+        if (whichNote != undefined) {
             openEditor(whichNote);
         } else {
             animateNotification("Note isn't selected", 'select');
@@ -133,8 +137,24 @@ function deleteNote(noteNum) {
 }
 
 function openEditor(noteNum) {
-    localStorage.setItem('open',`${noteNum}`);
+    localStorage.setItem('open', `${noteNum}`);
     window.open("./editor.html", "_self");
+}
+
+function eventsForList(i, DISP_PLACE, NOTE) {
+    
+    const IS_OPEN_NOTE = document.querySelector(`.open-cl`);
+
+    if (IS_OPEN_NOTE) {
+        IS_OPEN_NOTE.removeAttribute('class');
+        IS_OPEN_NOTE.setAttribute('class', 'document-item')
+        IS_OPEN_NOTE.style.backgroundColor = 'rgba(255, 255, 255, 0)';
+    }
+
+    NOTE.setAttribute('class', 'open-cl document-item');
+    NOTE.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+
+    DISP_PLACE.innerHTML = localStorage.getItem(`document${i}`);
 }
 
 //animations
@@ -201,13 +221,13 @@ function closeAnimation(transparency, notification) {
 
             let otherNotif = document.querySelectorAll('div.mini-notification');
             if (otherNotif.length > 0) {
-            
+
                 let height = otherNotif.length * 3.5;
-            
+
                 for (let i = otherNotif.length - 1; i >= 0; i--) {
-                    
+
                     height -= 3.5;
-                    otherNotif[i].style.bottom = `${ height }vw`;    
+                    otherNotif[i].style.bottom = `${height}vw`;
                 }
             }
         }
