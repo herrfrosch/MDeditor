@@ -17,18 +17,10 @@ const SPECIAL_CHAR = [
     "!",//12
     "`",//13
     "[",//14
-    "]",//15
+    "]"//15
 ];
 
-EDIT_PLACE.addEventListener('input', startParsing);
-
-function startParsing() {
-
-    DISP_PLACE.innerHTML = '';
-
-    const RAW_TEXT = EDIT_PLACE.value;
-    parser(RAW_TEXT);
-}
+EDIT_PLACE.addEventListener('input', parser);
 
 function containOnly(toCheck, checker) {
     for (let i = 0; i < toCheck.length; i++) {
@@ -37,10 +29,9 @@ function containOnly(toCheck, checker) {
     return true;
 }
 
-function parser(text) {
-
-    const MD_CODE = text.split('\n');
-
+function parser() {
+    DISP_PLACE.innerHTML = '';
+    const MD_CODE = EDIT_PLACE.value.split('\n');
     readToken(MD_CODE);
     readInner();
 }
@@ -50,10 +41,8 @@ function parser(text) {
 function readToken(textarr) {
 
     let flag = false;
-
     let firstChar;
     let earlierChar;
-
     let listCounter = 0;
     let blockQCounter = 0;
 
@@ -164,10 +153,8 @@ function addHeading(headerText) {
         if (headerText.charAt(a) != SPECIAL_CHAR[0] && a < 7) {
 
             const headerTag = 'h' + a;
-
             headerText = headerText.slice(a + 1, headerText.length);
             let header = document.createElement(headerTag);
-
             header.innerText = headerText;
             a = 8;
 
@@ -177,7 +164,6 @@ function addHeading(headerText) {
 
             a = 6;
             const headerTag = 'h' + a;
-
             headerText = headerText.split(' ').slice(1, headerText.length);
             let hdTxt = "";
 
@@ -198,13 +184,10 @@ function addHeading(headerText) {
 function alternateHeading(headerText, size) {
 
     const tag = 'h' + size;
-
     const header = document.createElement(tag);
-
     header.innerText = headerText;
 
     const last = DISP_PLACE.lastChild;
-
     DISP_PLACE.removeChild(last);
     DISP_PLACE.appendChild(header);
 }
@@ -233,9 +216,7 @@ function createElement(listText, index, listNum) {
 function makeuList(counter) {
 
     let tag = counter + '-list';
-
     let ulist = document.createElement("ul");
-
     ulist.setAttribute("id", tag);
 
     DISP_PLACE.appendChild(ulist);
@@ -245,7 +226,6 @@ function makeoList(counter) {
 
     let tag = counter + '-list';
     let olist = document.createElement("ol");
-
     olist.setAttribute("id", tag);
 
     DISP_PLACE.appendChild(olist);
@@ -292,7 +272,6 @@ function addQuote(quote, blockNum) {
                     inBlock.innerText = quote.slice(1, quote.length);
 
                     break;
-                //there are some troubles with list support i'll do it later
             }
         }
     }
@@ -316,17 +295,14 @@ function addQuote(quote, blockNum) {
 function createBlockquote(blockNum) {
 
     const TAG = blockNum + '-bq';
-
     const BLOCK = document.createElement("blockquote");
 
     BLOCK.classList.add("bquote");
     BLOCK.setAttribute("id", TAG);
-
     DISP_PLACE.appendChild(BLOCK);
 }
 
 function addHorizonLine() {
-
     DISP_PLACE.removeChild(DISP_PLACE.lastChild);
     const LAST = DISP_PLACE.lastChild;
     LAST.classList.add("horizonLine");
@@ -488,7 +464,7 @@ function formatRefLink() {
     const REGEX = /\[+.{1,}?\]+?\[+.{1,}?\]/gi;
     const TEXT = DISP_PLACE.innerHTML;
 
-    matchText = new Array();
+    let matchText = new Array();
     matchText = TEXT.match(REGEX);
 
     if (matchText != null) {
@@ -589,7 +565,7 @@ function formatAltLink() {
         let link = '<a href="' + innerLink + '">' + innerLink + '</a>';
 
         return link;
-    })
+    });
 
     DISP_PLACE.innerHTML = result;
 }
@@ -817,13 +793,13 @@ function closeAnimation(transparency, notification) {
 
             let otherNotif = document.querySelectorAll('div.mini-notification');
             if (otherNotif.length > 0) {
-            
+
                 let height = otherNotif.length * 3.5;
-            
+
                 for (let i = otherNotif.length - 1; i >= 0; i--) {
-                    
+
                     height -= 3.5;
-                    otherNotif[i].style.bottom = `${ height }vw`;    
+                    otherNotif[i].style.bottom = `${height}vw`;
                 }
             }
         }

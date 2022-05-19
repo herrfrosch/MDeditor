@@ -21,7 +21,6 @@ window.onload = () => {
     }
 
     for (let i = 1; i <= itemNum; i++) {
-
         const NOTE_NAME = document.getElementById(i);
 
         NOTE_NAME.addEventListener('click', () => {
