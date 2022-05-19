@@ -1,5 +1,6 @@
 body {
     font-family: 'Noto Sans', sans-serif;
+    overflow: hidden;
     background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/congruent_pentagon.png');
     /*Thanks to subtle patterns
     https://www.toptal.com/designers/subtlepatterns/congruent-pentagon/*/
@@ -33,10 +34,10 @@ body {
 
 #document-list {
     width: 30%;
-    height: auto;
-    padding-left: 1%;
-    padding-right: 1%;
+    height: 90vh;
+    padding: 1%;
     text-align: center;
+    overflow: auto;
 }
 
 #document-preview {
@@ -45,25 +46,15 @@ body {
 }
 
 #document-view {
-    height: 82vh;
+    height: 81vh;
     padding: 1vw;
+    margin-top: 1%;
     text-align: left;
     background-color: #fff;
     border-radius: 20px;
     -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
     -moz-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
     box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
-}
-
-.list-title {
-    font-size: 1.8em;
-    font-weight: 600;
-    background-color: #B3F2C9;
-    border-radius: 20px;
-    margin-bottom: 1vw;
-    -webkit-box-shadow: 8px 8px 47px -7px rgba(66, 68, 90, 1);
--moz-box-shadow: 8px 8px 47px -7px rgba(66, 68, 90, 1);
-box-shadow: 8px 8px 47px -7px rgba(66, 68, 90, 1);
 }
 
 .document-item {
@@ -88,9 +79,10 @@ box-shadow: 8px 8px 47px -7px rgba(66, 68, 90, 1);
     background-color: rgba(0, 0, 0, 0);
     -webkit-box-shadow: 0px 7px 23px -5px rgba(66, 68, 90, 1);
     -moz-box-shadow: 0px 7px 23px -5px rgba(66, 68, 90, 1);
-    box-shadow: 0px 7px 23px -5px rgba(66, 68, 90, 1);}
+    box-shadow: 0px 7px 23px -5px rgba(66, 68, 90, 1);
+}
 
-.bttn{
+.bttn {
     font-size: 15px;
     margin: 1vw 1vw 0 0;
     padding: 5px;
@@ -102,13 +94,13 @@ box-shadow: 8px 8px 47px -7px rgba(66, 68, 90, 1);
     transition: all .2s ease-in-out;
 }
 
-.bttn:hover{
+.bttn:hover {
     background-color: #000;
     color: #fff;
 }
 
 .mini-notification {
-    color:rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0);
     background-color: rgba(255, 255, 255, 0);
     border: solid;
     border-color: rgba(0, 0, 0, 0);
@@ -123,12 +115,25 @@ box-shadow: 8px 8px 47px -7px rgba(66, 68, 90, 1);
     right: 0;
     bottom: 0;
     transition: all .1s ease-in-out;
-    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1); 
+    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
     -moz-box-shadow: 0px 10px 25px -7px rgb(228, 228, 245);
     box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
 }
 
 .mini-notification:hover {
     cursor: pointer;
-    color:rgb(255, 77, 77) !important;
+    color: rgb(255, 77, 77) !important;
+}
+
+::-webkit-scrollbar {
+    width: .7rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.8);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover { 
+    background: rgba(150, 150, 150, 1);
 }
