@@ -89,3 +89,18 @@ footer {
     color: #909090;
     background-color: #1f1f1f;
 }
+
+footer > .rows > .col-md-3 > a{
+    color: #909090;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    text-decoration: none;
+    
+}
+
+footer > .rows > .col-md-3 > a:hover{
+    color: #e9820c;
+    text-decoration: underline;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
