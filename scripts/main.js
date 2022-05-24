@@ -641,7 +641,7 @@ function upload() {
                         EDIT_PLACE.value = text;
                         POPUP.style.display = "none";
 
-                        startParsing(); //possibility of html injection
+                        parser(); //possibility of html injection
                     });
                 }
             });
@@ -716,7 +716,7 @@ function saveDocument() {
     NEW_BTN.addEventListener('click', () => {
         EDIT_PLACE.value = '';
         TITLE_INPUT.value = '';
-        startParsing();
+        parser();
         animateNotification('Created new note', 'new');
     });
 }
@@ -726,7 +726,7 @@ function loadDocument(noteNum) {
     let titleString = localStorage.getItem(`title${noteNum}`);
     EDIT_PLACE.value = documentString;
     document.getElementById('doc-title').value = titleString;
-    startParsing();
+    parser();
 }
 
 // animations
