@@ -53,3 +53,39 @@ main {
     border-width: 1px;
     border-radius: 15px;
 }
+
+header {
+    margin: 10px 0 10px 0;
+}
+
+h5 {
+    margin: 10px 0 0 0;
+}
+
+.no-top > h2 {
+    margin: 0 !important;
+}
+
+nav {
+    padding: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #7e7e7e;
+    border-radius: 20px;
+}
+
+#pg-head > h1 {
+    margin: 0;
+}
+
+#pg-head > h5 {
+    margin: 0;
+}
+
+footer {
+    text-align: center;
+    margin: 1.5vw 0 0 0;
+    padding: .5vw;
+    color: #909090;
+    background-color: #1f1f1f;
+}
