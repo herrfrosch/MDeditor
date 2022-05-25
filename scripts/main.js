@@ -612,6 +612,10 @@ function formatImage() {
 
 function upload() {
 
+    if (screen.width <= 500){
+        mobile();
+    }
+
     const UP_BTN = document.getElementById('upload');
     const EX_BTN = document.getElementById('export');
 
