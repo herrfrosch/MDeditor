@@ -38,6 +38,10 @@ main {
     background-color: #fff;
     border-radius: 20px;
     padding: 10px;
+    margin: 0 0 2vw 0;
+    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1); 
+    -moz-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
+    box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
 }
 
 .center-img {
@@ -84,8 +88,7 @@ nav {
 
 footer {
     text-align: center;
-    margin: 1.5vw 0 0 0;
-    padding: .5vw;
+    padding: 1vw 0 2vw 0;
     background-color: #1f1f1f;
     color: #fff;
 }
@@ -102,4 +105,11 @@ footer > .rows > .col-md-3 > a:hover{
     text-decoration: underline;
     margin-top: 4rem;
     margin-bottom: 4rem;
+}
+
+@media only screen and (max-width:575px) {
+    main {
+        width: 95% !important;
+        margin: 0 0 5vw 0;
+    }
 }

@@ -123,3 +123,9 @@ footer > .rows > .col-md-3 > a:hover{
         display: none;
     }
 }
+
+@media only screen and (max-width: 575px) {
+    main {
+        margin: 0 0 5vw 0;
+    }
+}
