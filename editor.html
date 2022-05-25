@@ -10,8 +10,7 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href="styles/editstyle.css" rel="stylesheet" type="text/css" />
 
 </head>
@@ -49,57 +48,41 @@
         </nav>
     </header>
 
-    <main>
+    <main class="container-fluid">
 
-        <div class="container-fluid">
+        <div class="row rows">
 
-            <div class="row rows">
+            <section class="col-12">
 
-                <div class="col-12">
+                <div id="up-download">
 
-                    <section>
-
-                        <div id="up-download">
-
-                            <label for="doc-title" id="doc-label">Note title</label><br />
-                            <input type="text" class="bttn" id="doc-title" name="doc-title"
-                                placeholder="Enter document title..." maxlength="18" size="20" />
-                            <button class="bttn" id="new-doc">New note</button>
-                            <button class="bttn" id="save">Save note</button>
-                            <button class="bttn" id="upload">Upload file</button>
-                            <button class="bttn" id="export">Download file</button>
-
-                        </div>
-
-                    </section>
+                    <label for="doc-title" id="doc-label">Note title</label><br />
+                    <input type="text" class="bttn" id="doc-title" name="doc-title"
+                        placeholder="Enter document title..." maxlength="18" size="20" />
+                    <button class="bttn" id="new-doc">New note</button>
+                    <button class="bttn" id="save">Save note</button>
+                    <button class="bttn" id="upload">Upload file</button>
+                    <button class="bttn" id="export">Download file</button>
 
                 </div>
 
-                <div class="col-md-6">
+            </section>
 
-                    <section>
+            <section class="col-md-6">
 
-                        <div id="input-area">
+                <div id="input-area">
 
-                            <textarea id="work-place" placeholder="Write text here..." autofocus></textarea>
-
-                        </div>
-
-                    </section>
+                    <textarea id="work-place" placeholder="Write text here..." autofocus></textarea>
 
                 </div>
 
-                <div class="col-md-6">
+            </section>
 
-                    <section>
+            <section class="col-md-6">
 
-                        <div id="display-area"></div>
+                <div id="display-area"></div>
 
-                    </section>
-
-                </div>
-
-            </div>
+            </section>
 
         </div>
 
