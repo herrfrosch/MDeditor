@@ -202,7 +202,7 @@ function animateNotification(message, tag) {
             if (!isClosed) {
                 closeAnimation(transparency, notification);
             }
-        }, 5000);
+        }, 500000);
     }
 }
 
