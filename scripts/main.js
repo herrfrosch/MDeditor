@@ -715,9 +715,6 @@ function saveDocument() {
 
             animateNotification('File saved successfully', 'success');
         } else if (EDIT_PLACE.value != '' && TITLE_INPUT.value == '') {
-
-            noteNum++;
-
             animateNotification("Enter a title", 'title');
             TITLE_INPUT.focus();
         } else {
