@@ -620,10 +620,15 @@ function upload() {
     const CLOSE_BTN = document.getElementById('popup-close');
     const CLOSE_BTN_MOBILE = document.getElementById('mobile-close');
     const UPL_BTN = document.getElementById('upload-btn');
+    const SECTION = document.querySelectorAll("section");
+    const SMALL_TAG = document.querySelectorAll(".window-tag");
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
 
         UP_BTN.addEventListener("click", () => {
+
+            SECTION.forEach((element) => { element.style.position = "static"; });
+            SMALL_TAG.forEach((element) => { element.style.display = "none"; });
 
             POPUP.style.display = "inline";
             FILE_INPUT.addEventListener("change", () => {
@@ -642,12 +647,19 @@ function upload() {
                         POPUP.style.display = "none";
 
                         parser(); //possibility of html injection
+                        SECTION.forEach((element) => { element.style.position = "relative"; });
+                        SMALL_TAG.forEach((element) => { element.style.display = "inline"; });
                     });
                 }
             });
+
         });
 
-        CLOSE_BTN.addEventListener('click', () => { POPUP.style.display = "none"; });
+        CLOSE_BTN.addEventListener('click', () => { 
+            SECTION.forEach((element) => { element.style.position = "relative"; });
+            SMALL_TAG.forEach((element) => { element.style.display = "inline"; });
+            POPUP.style.display = "none"; 
+        });
         CLOSE_BTN_MOBILE.addEventListener('click', () => { POPUP.style.display = "none"; });
 
         EX_BTN.addEventListener('click', () => {
@@ -735,8 +747,10 @@ function animateNotification(message, tag) {
 
     let isAnotherNotifi = document.querySelectorAll(`div.mini-notification`);
     let isSameNotifi = null;
+    let heightArr = new Array();
 
     if (isAnotherNotifi) {
+        isAnotherNotifi.forEach((element, index) => { heightArr[index] = element.clientHeight ;});
         isSameNotifi = document.querySelector(`div.mini-notification#${tag}`);
     }
 
@@ -748,7 +762,7 @@ function animateNotification(message, tag) {
         document.body.appendChild(notification);
 
         if (isAnotherNotifi) {
-            notification.style.bottom = `${isAnotherNotifi.length * 3.5}vw`;
+            notification.style.bottom = `${ spaceBetween(heightArr) }px`;
         }
 
         let transparency = 0.0;
@@ -792,16 +806,26 @@ function closeAnimation(transparency, notification) {
             document.body.removeChild(notification);
 
             let otherNotif = document.querySelectorAll('div.mini-notification');
+            let otherNotifHeight = new Array();
+            otherNotif.forEach((element, index) => { otherNotifHeight[index] = element.clientHeight; });
+
             if (otherNotif.length > 0) {
 
-                let height = otherNotif.length * 3.5;
-
+                let heightSum = spaceBetween(otherNotifHeight);
+                let height = heightSum / otherNotif.length;
+ 
                 for (let i = otherNotif.length - 1; i >= 0; i--) {
 
-                    height -= 3.5;
-                    otherNotif[i].style.bottom = `${height}vw`;
+                    heightSum -= height;
+                    otherNotif[i].style.bottom = `${ heightSum }px`;
                 }
             }
         }
     }, 50);
+}
+
+function spaceBetween(heightArr) {
+    let retVal = 0;
+    heightArr.forEach( (element) => { retVal += (element + 8); } );
+    return retVal;
 }
