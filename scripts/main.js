@@ -620,10 +620,15 @@ function upload() {
     const CLOSE_BTN = document.getElementById('popup-close');
     const CLOSE_BTN_MOBILE = document.getElementById('mobile-close');
     const UPL_BTN = document.getElementById('upload-btn');
+    const SECTION = document.querySelectorAll("section");
+    const SMALL_TAG = document.querySelectorAll(".window-tag");
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
 
         UP_BTN.addEventListener("click", () => {
+
+            SECTION.forEach((element) => { element.style.position = "static"; });
+            SMALL_TAG.forEach((element) => { element.style.display = "none"; });
 
             POPUP.style.display = "inline";
             FILE_INPUT.addEventListener("change", () => {
@@ -642,12 +647,19 @@ function upload() {
                         POPUP.style.display = "none";
 
                         parser(); //possibility of html injection
+                        SECTION.forEach((element) => { element.style.position = "relative"; });
+                        SMALL_TAG.forEach((element) => { element.style.display = "inline"; });
                     });
                 }
             });
+
         });
 
-        CLOSE_BTN.addEventListener('click', () => { POPUP.style.display = "none"; });
+        CLOSE_BTN.addEventListener('click', () => { 
+            SECTION.forEach((element) => { element.style.position = "relative"; });
+            SMALL_TAG.forEach((element) => { element.style.display = "inline"; });
+            POPUP.style.display = "none"; 
+        });
         CLOSE_BTN_MOBILE.addEventListener('click', () => { POPUP.style.display = "none"; });
 
         EX_BTN.addEventListener('click', () => {
