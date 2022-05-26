@@ -162,8 +162,10 @@ function animateNotification(message, tag) {
 
     let isAnotherNotifi = document.querySelectorAll(`div.mini-notification`);
     let isSameNotifi = null;
+    let heightArr = new Array();
 
     if (isAnotherNotifi) {
+        isAnotherNotifi.forEach((element, index) => { heightArr[index] = element.clientHeight ;});
         isSameNotifi = document.querySelector(`div.mini-notification#${tag}`);
     }
 
@@ -175,7 +177,7 @@ function animateNotification(message, tag) {
         document.body.appendChild(notification);
 
         if (isAnotherNotifi) {
-            notification.style.bottom = `${isAnotherNotifi.length * 3.5}vw`;
+            notification.style.bottom = `${ spaceBetween(heightArr) }px`;
         }
 
         let transparency = 0.0;
@@ -202,7 +204,7 @@ function animateNotification(message, tag) {
             if (!isClosed) {
                 closeAnimation(transparency, notification);
             }
-        }, 500000);
+        }, 5000);
     }
 }
 
@@ -219,16 +221,26 @@ function closeAnimation(transparency, notification) {
             document.body.removeChild(notification);
 
             let otherNotif = document.querySelectorAll('div.mini-notification');
+            let otherNotifHeight = new Array();
+            otherNotif.forEach((element, index) => { otherNotifHeight[index] = element.clientHeight; });
+
             if (otherNotif.length > 0) {
 
-                let height = otherNotif.length * 3.5;
-
+                let heightSum = spaceBetween(otherNotifHeight);
+                let height = heightSum / otherNotif.length;
+ 
                 for (let i = otherNotif.length - 1; i >= 0; i--) {
 
-                    height -= 3.5;
-                    otherNotif[i].style.bottom = `${height}vw`;
+                    heightSum -= height;
+                    otherNotif[i].style.bottom = `${ heightSum }px`;
                 }
             }
         }
     }, 50);
+}
+
+function spaceBetween(heightArr) {
+    let retVal = 0;
+    heightArr.forEach( (element) => { retVal += (element + 8); } );
+    return retVal;
 }

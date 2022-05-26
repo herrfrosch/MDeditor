@@ -1,37 +1,37 @@
-body{
+body {
     font-family: 'Noto Sans', sans-serif;
     background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/congruent_pentagon.png');
     /*Thanks to subtle patterns
     https://www.toptal.com/designers/subtlepatterns/congruent-pentagon/*/
 }
 
-.rows{
+.rows {
     width: 100% !important;
     margin: 0 !important;
 }
 
-.navbar{
+.navbar {
     font-size: 20px;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     text-decoration: none;
 }
 
-.navbar-brand{
+.navbar-brand {
     font-size: 25px;
     transition: all .5s ease;
 }
 
-.navbar-brand:hover{
+.navbar-brand:hover {
     text-decoration: none;
 }
 
-.bg-MDe{
-  background-color: rgba(36, 36, 41, 0);
+.bg-MDe {
+    background-color: rgba(36, 36, 41, 0);
 }
 
-#work-place{
+#work-place {
     color: #000;
     width: 100%;
     height: 75vh;
@@ -40,24 +40,24 @@ body{
     padding: 1vw;
     resize: none;
     outline: none;
-    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1); 
+    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
     -moz-box-shadow: 0px 10px 25px -7px rgb(228, 228, 245);
     box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
 }
 
-#display-area{
+#display-area {
     overflow-x: auto;
     background-color: #fff;
     height: 75vh;
     padding: 1vw;
     border-radius: 20px;
-    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1); 
+    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
     -moz-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
     box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
     white-space: pre-wrap;
 }
 
-.bquote{
+.bquote {
     background-color: rgb(250, 250, 250);
     display: block;
     border-style: none none none solid;
@@ -66,18 +66,18 @@ body{
     padding: 10px 2px;
 }
 
-.horizonLine{
+.horizonLine {
     border-style: none none solid none;
     border-width: 2px;
     border-color: rgba(130, 130, 130, .5);
     padding-bottom: 5px;
 }
 
-#up-download{
+#up-download {
     margin: 0 0 3.75vw 0;
 }
 
-.bttn{
+.bttn {
     font-size: 15px;
     margin-right: 1vw;
     margin-bottom: .5vw;
@@ -91,12 +91,12 @@ body{
     float: right;
 }
 
-.bttn:hover{
+.bttn:hover {
     background-color: #000;
     color: #fff;
 }
 
-.popup-bg{
+.popup-bg {
     background-color: rgba(0, 0, 0, .5);
     width: 100%;
     height: 100%;
@@ -105,32 +105,32 @@ body{
     top: auto;
 }
 
-.popup-title{
+.popup-title {
     font-size: 2rem;
     margin-left: 50px;
 }
 
-.popup-closing{
+.popup-closing {
     float: right;
     margin-right: 5px;
     transition: all .2s ease-in-out;
 }
 
-.popup-closing:hover{
+.popup-closing:hover {
     color: rgb(255, 77, 77);
     cursor: pointer;
     font-weight: 500;
 }
 
-#mobile-close{
+#mobile-close {
     display: none;
 }
 
-#popup-input{
+#popup-input {
     display: none;
 }
 
-#upload-popup{
+#upload-popup {
     background-color: #fff;
     width: 50vw;
     height: 10.5rem;
@@ -141,11 +141,11 @@ body{
     text-align: center;
 }
 
-#upload-file{
+#upload-file {
     margin-left: 60px;
 }
 
-#upload-btn{
+#upload-btn {
     width: 48vw;
     margin-top: 1.5em;
     background-color: #b1f6cb;
@@ -153,35 +153,35 @@ body{
 }
 
 .mini-notification {
-    color:rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0);
     background-color: rgba(255, 255, 255, 0);
     border: solid;
     border-color: rgba(0, 0, 0, 0);
     border-width: 1px;
     border-radius: 10px;
     text-align: center;
-    width: 15vw;
-    height: 3vw;
+    width: auto;
+    height: auto;
     margin: 1vw;
     padding: .5vw;
     position: fixed;
     right: 0;
     bottom: 0;
     transition: all .1s ease-in-out;
-    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1); 
+    -webkit-box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
     -moz-box-shadow: 0px 10px 25px -7px rgb(228, 228, 245);
     box-shadow: 0px 10px 25px -7px rgba(36, 36, 41, 1);
 }
 
 .mini-notification:hover {
     cursor: pointer;
-    color:rgb(255, 77, 77) !important;
+    color: rgb(255, 77, 77) !important;
 }
 
 #doc-title {
     border-top: 2px solid;
     border-bottom: 2px solid;
-    float: left !important; 
+    float: left !important;
 }
 
 #doc-title:hover {
@@ -204,18 +204,18 @@ section {
     bottom: 10px;
     right: 25px;
 }
-    
+
 @media only screen and (max-width: 1024px) {
-    .popup-title{
+    .popup-title {
         font-size: 20pt;
         margin: 0;
     }
 
-    .popup-closing{
-       display: none;
+    .popup-closing {
+        display: none;
     }
 
-    #mobile-close{
+    #mobile-close {
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -229,7 +229,7 @@ section {
         color: #fff;
     }
 
-    #upload-popup{
+    #upload-popup {
         background-color: #fff;
         width: 90vw;
         height: 225px;
@@ -238,11 +238,15 @@ section {
         text-align: center;
         transition: all .2s ease-in-out;
     }
+
+    .mini-notification {
+        margin: 2.5vw;
+    }
 }
 
 @media only screen and (max-width: 767px) {
 
-    #input-area > textarea {
+    #input-area>textarea {
         height: 37.5vh;
     }
 
@@ -254,7 +258,7 @@ section {
 
 @media only screen and (max-width: 663px) {
 
-    #input-area > textarea {
+    #input-area>textarea {
         padding: 2vw;
     }
 
@@ -282,5 +286,10 @@ section {
     input.bttn {
         width: 100%;
         margin: 0 0 10px 0;
+    }
+
+    .mini-notification {
+        width: 98%;
+        height: 4vh;
     }
 }
