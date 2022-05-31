@@ -5,12 +5,12 @@ window.onload = () => {
     const DEL_BTN = document.getElementById('del-btn');
     const OPEN_BTN = document.getElementById('open-btn');
 
-    let itemNum = localStorage.length / 3;
+    let itemNum = (localStorage.length - 1) / 3;
     let whichNote = undefined;
 
     DOC_LIST.innerHTML = '';
 
-    if (itemNum > 0) {
+    if (itemNum > 1) {
         loadNotes(itemNum, DOC_LIST);
     } else {
         const EMPTY_LIST = document.createElement('div');
