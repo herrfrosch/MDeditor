@@ -22,6 +22,8 @@ const SPECIAL_CHAR = [
 
 EDIT_PLACE.addEventListener('input', parser);
 
+window.onload = upload();
+
 function containOnly(toCheck, checker) {
     for (let i = 0; i < toCheck.length; i++) {
         if (toCheck[i] != checker) return false;
