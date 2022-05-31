@@ -26,7 +26,7 @@ function showInfo() {
         " Our cookies doesn't track you and don't identify you in the web. Learn more in the <a href=\"#\">Cookie Policy</a>.</br>";
 
     const okBtn = document.createElement('button');
-    okBtn.style.width = '10%';
+    okBtn.style.width = 'auto';
     okBtn.style.borderRadius = '20px';
     okBtn.style.borderWidth = '1px';
     okBtn.style.borderColor = '#e9820c';
@@ -36,7 +36,7 @@ function showInfo() {
     okBtn.setAttribute("id", "ok-btn");
 
     const noBtn = document.createElement('button');
-    noBtn.style.width = '10%';
+    noBtn.style.width = 'auto';
     noBtn.style.borderRadius = '20px';
     noBtn.style.borderWidth = '1px';
     noBtn.style.borderColor = '#e9820c';
