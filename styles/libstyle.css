@@ -138,6 +138,21 @@ body {
     background: rgba(150, 150, 150, 1);
 }
 
+a{
+    text-decoration: none;
+    color:#e9820c;
+}
+
+a:hover{
+    text-decoration: underline;
+    color:#dd500f
+}
+
+a:visited{
+    color: #dd500f;
+}
+
+
 @media only screen and (max-width: 425px) {
 
     body {
