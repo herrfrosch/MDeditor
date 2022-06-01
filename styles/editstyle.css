@@ -219,6 +219,40 @@ a:visited{
     color: #dd500f;
 }
 
+aside {
+    font-size: 18px;
+    width: auto;
+    height: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 2px 10px;
+    background-color: rgba(255, 255, 255, .8);
+    border-style: none none solid solid;
+    border-width: 1px;
+    border-color: #000;
+    border-radius: 0 0 0 10px;
+    transition: all .2s ease-in-out;
+}
+
+aside:hover {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+a#div-link {
+    all: unset;
+}
+
+a:visited aside#div-link {
+    all: unset;
+}
+
+a:hover#div-link {
+    all: unset;
+}
+
 @media only screen and (max-width: 1024px) {
     .popup-title {
         font-size: 20pt;
@@ -255,6 +289,15 @@ a:visited{
 
     .mini-notification {
         margin: 2.5vw;
+    }
+
+    aside {
+        top: auto;
+        bottom: 10px;
+        left: 10px;
+        right: auto;
+        border-radius: 20px;
+        border-style: solid;
     }
 }
 
