@@ -666,11 +666,19 @@ function upload() {
 
         EX_BTN.addEventListener('click', () => {
             if (EDIT_PLACE.value != "") {
+
                 let downloadFile = new Blob([EDIT_PLACE.value], { type: 'text/MD' });
                 let anchor = document.createElement('a');
-                anchor.download = EDIT_PLACE.value.split(' ')[0] + '.md';
+                let title = "untitled";
+
+                if (document.querySelector("input#doc-title").value != "") {
+                    title = document.querySelector("input#doc-title").value;
+                }
+
+                anchor.download = title + '.md';
                 anchor.href = window.URL.createObjectURL(downloadFile);
                 anchor.click();
+
             } else {
                 alert('File is empty');
             }
