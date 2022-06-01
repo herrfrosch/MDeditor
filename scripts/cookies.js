@@ -32,45 +32,25 @@ function showInfo() {
     okBtn.style.borderColor = '#e9820c';
     okBtn.style.borderStyle = 'solid';
     okBtn.style.margin = '10px 5px 0 0';
-    okBtn.innerText = "Accept";
+    okBtn.style.padding = '0 8px';
+    okBtn.innerText = "Ok";
     okBtn.setAttribute("id", "ok-btn");
-
-    const noBtn = document.createElement('button');
-    noBtn.style.width = 'auto';
-    noBtn.style.borderRadius = '20px';
-    noBtn.style.borderWidth = '1px';
-    noBtn.style.borderColor = '#e9820c';
-    noBtn.style.borderStyle = 'solid';
-    noBtn.style.margin = '10px 0 0 5px';
-    noBtn.innerText = "Reject";
-    noBtn.setAttribute("id", "no-btn");
 
     document.body.appendChild(info);
     info.appendChild(okBtn);
-    info.appendChild(noBtn);
 }
 
 function handleInfo() {
     const okBtn = document.getElementById("ok-btn");
-    const noBtn = document.getElementById("no-btn");
 
     okBtn.addEventListener("mouseover", () => { onBtnHover(okBtn); });
     okBtn.addEventListener("mouseleave", () => { offBtnHover(okBtn); });
-
-    noBtn.addEventListener("mouseover", () => { onBtnHover(noBtn); });
-    noBtn.addEventListener("mouseleave", () => { offBtnHover(noBtn); });
 
     okBtn.addEventListener('click', () => { 
 
         document.body.removeChild(document.getElementById("cookie-banner"));
         localStorage.setItem("cookies", "true");
-    });
-
-    noBtn.addEventListener('click', () => { 
-    
-        document.body.removeChild(document.getElementById("cookie-banner")); 
-        localStorage.setItem("cookies", "false");    
-    });
+    });    
 }
 
 function onBtnHover(button) {

@@ -10,7 +10,7 @@ window.onload = () => {
 
     DOC_LIST.innerHTML = '';
 
-    if (itemNum > 1) {
+    if (itemNum > 0) {
         loadNotes(itemNum, DOC_LIST);
     } else {
         const EMPTY_LIST = document.createElement('div');
