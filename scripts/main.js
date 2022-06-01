@@ -388,6 +388,11 @@ function formatEmp() {
             }
         }
 
+        if (tag == undefined || endTag == undefined) {
+            tag = '';  
+            endTag = '';
+        }
+
         replacementText[counter] = tag + replacementText[counter] + endTag;
         return replacementText[counter];
     });
