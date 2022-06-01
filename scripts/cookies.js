@@ -23,8 +23,8 @@ function showInfo() {
     info.style.padding = '1% 2%';
     info.setAttribute('id', 'cookie-banner');
     info.innerHTML = "Emdeet uses cookies only to save your notes in your browser.</br>" +
-        " Our cookies doesn't track you and don't identify you in the web. Learn more in the <a href=\"#\">Cookie Policy</a>.</br>";
-
+        " Our cookies doesn't track you and don't identify you in the web." + 
+        "Learn more in the <a href=\"cookie-policy.html\">Cookie Policy</a>.</br>";
     const okBtn = document.createElement('button');
     okBtn.style.width = 'auto';
     okBtn.style.borderRadius = '20px';
