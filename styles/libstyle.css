@@ -107,8 +107,8 @@ body {
     border-width: 1px;
     border-radius: 10px;
     text-align: center;
-    width: 15vw;
-    height: 3vw;
+    width: auto;
+    height: auto;
     margin: 1vw;
     padding: .5vw;
     position: fixed;
