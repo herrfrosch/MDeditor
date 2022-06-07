@@ -1,5 +1,6 @@
 body {
     font-family: 'Noto Sans', sans-serif;
+    color: #000;
     overflow: hidden;
     background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/congruent_pentagon.png');
     /*Thanks to subtle patterns
@@ -134,21 +135,21 @@ body {
     border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover { 
+::-webkit-scrollbar-thumb:hover {
     background: rgba(150, 150, 150, 1);
 }
 
-a{
+a {
     text-decoration: none;
-    color:#e9820c;
+    color: #e9820c;
 }
 
-a:hover{
+a:hover {
     text-decoration: underline;
-    color:#dd500f
+    color: #dd500f
 }
 
-a:visited{
+a:visited {
     color: #dd500f;
 }
 
@@ -190,7 +191,11 @@ a:visited{
     }
 
     .mini-notification {
-        width: 98%;
-        height: 4vh;
+        width: 95%;
+        margin: auto 10px;
+    }
+
+    ::-webkit-scrollbar {
+        width: .3rem;
     }
 }

@@ -1,5 +1,6 @@
 body {
     font-family: 'Noto Sans', sans-serif;
+    color: #000;
     background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/congruent_pentagon.png');
     /*Thanks to subtle patterns
     https://www.toptal.com/designers/subtlepatterns/congruent-pentagon/*/
@@ -346,7 +347,7 @@ a:hover#div-link {
     }
 
     .mini-notification {
-        width: 98%;
-        height: 4vh;
+        width: 95%;
+        margin: auto 10px;
     }
 }

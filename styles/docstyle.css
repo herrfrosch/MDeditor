@@ -32,6 +32,7 @@ header > h1 > a:hover {
 
 body {
     font-family: 'Noto Sans', sans-serif;
+    color: #000;
     background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/congruent_pentagon.png');
     /*Thanks to subtle patterns
     https://www.toptal.com/designers/subtlepatterns/congruent-pentagon/*/
