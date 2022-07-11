@@ -2,6 +2,8 @@
 
 *Emdeet* is an online *markdown* editor which supports basic syntax of *markdown* format.
 
-It's my first serious programming project, which I've been doing for few months. At current stage of development I'm debugging markdown parser, and working on more responsive site. Also I want to implement export function, in order to getting `.html` and `.md` files and browser-saved files library.
+In order to parsing *markdown* syntax I wrote parser in vanilla JS, whole parser can be found in the `scripts/main.js`, also I implemented downloading and uploading markdown (`.md`) files serverless through File API. With help of localStorage I implented saving notes in the browser, which can be helpful if you want to reopen your notes or store them only at the website. 
 
-**In order to proper use, you need to add Bootstrap 5**. (I'll set *emdeet's* website soon.)
+Current version: 1.0
+
+I'll implement more features to the *emdeet* in the future, but at this moment I want to foucs on another projects.
